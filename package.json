@@ -1,0 +1,26 @@
+{
+  "name": "runatest",
+  "version": "1.0.0",
+  "description": "This is a Simple React App CRUD React App with PostresSQL DB",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LIGL06/RunaTest.git"
+  },
+  "keywords": [
+    "React",
+    "Redux",
+    "Ducks",
+    "React-Router",
+    "Redux-Form"
+  ],
+  "author": "Iván García",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LIGL06/RunaTest/issues"
+  },
+  "homepage": "https://github.com/LIGL06/RunaTest#readme"
+}
