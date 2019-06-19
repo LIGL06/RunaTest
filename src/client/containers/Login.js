@@ -16,10 +16,12 @@ class Login extends React.Component {
   handleSubmit = (event) => {
     const { history, location } = this.props;
     event.preventDefault();
+    console.log(this.props);
   };
 
   canContinue = () => {
-    //
+    const { password, email } = this.state;
+    return password && email;
   };
 
   render() {
@@ -27,10 +29,6 @@ class Login extends React.Component {
     return (
       <>
         <div className="container">
-          <img
-            alt="Graph"
-            className="auth-bird"/>
-          <style>{ 'body { background-color: #2B2B2B }' }</style>
           <img
             className="auth-logo"
             alt="Logo"
