@@ -5,7 +5,7 @@ import SessionActions from '../actions/Session';
 
 // Containers
 import Dashboard from './Dashboard';
-// import Login from './Login';
+import Login from './Login';
 
 // Main Application Router
 class Application extends React.Component {
@@ -13,7 +13,7 @@ class Application extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          {/*<Route path="/login" component={ Login }/>*/ }
+          <Route path="/login" component={ Login }/>
           <Route path="/logout" component={ SessionActions.logout }/>
           <Route path="/" component={ Dashboard }/>
         </Switch>

@@ -1,16 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import confStore, { history } from './store';
 import Application from './containers/Application';
 
-if (localStorage.session) {
-  const session = JSON.parse(localStorage.session);
-  // Save session on state
-}
-
-if (localStorage.token) {
-  // Set Headers on Async Router
-  axios.defaults.headers.common['X-Jwt-Token'] = localStorage.token;
-}
+const store = confStore();
 
 const root = document.getElementById('root');
-ReactDOM.render(<Application/>, root);
+render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Application />
+    </ConnectedRouter>
+  </Provider>
+, root);
