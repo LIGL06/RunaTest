@@ -4,7 +4,11 @@
   "description": "This is a Simple React App CRUD React App with PostresSQL DB",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "build": "NODE_ENV=production webpack --config webpack.config.js",
+    "migrate": "NODE_ENV=development knex migrate:latest",
+    "start": "NODE_ENV=production node tasks/init",
+    "dev": "NODE_ENV=development node tasks/develop"
   },
   "repository": {
     "type": "git",
@@ -22,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/LIGL06/RunaTest/issues"
   },
-  "homepage": "https://github.com/LIGL06/RunaTest#readme"
+  "homepage": "https://github.com/LIGL06/RunaTest#readme",
+  "dependencies": {
+    "knex": "^0.17.6",
+    "pg": "^7.11.0"
+  }
 }
