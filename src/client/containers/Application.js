@@ -1,7 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import SessionActions from '../actions/Session';
+// import SessionActions from '../actions/session';
 
 // Containers
 import Dashboard from './Dashboard';
@@ -14,7 +14,7 @@ class Application extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route path="/login" component={ Login }/>
-          <Route path="/logout" component={ SessionActions.logout }/>
+          {/*<Route path="/logout" component={ SessionActions.logout }/>*/}
           <Route path="/" component={ Dashboard }/>
         </Switch>
       </BrowserRouter>
