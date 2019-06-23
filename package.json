@@ -47,7 +47,6 @@
     "redux": "^4.0.1",
     "redux-form": "^8.2.4",
     "redux-observable": "^1.1.0",
-    "redux-thunk": "^2.3.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
