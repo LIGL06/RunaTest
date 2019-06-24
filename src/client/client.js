@@ -14,4 +14,4 @@ render(
       <Application />
     </ConnectedRouter>
   </Provider>
-, root);
+  , root);

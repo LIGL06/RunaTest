@@ -1,36 +1,26 @@
-import React from 'react';
-import { login } from '../modules/session'
+// Dependencies
+import React, { Component }  from 'react';
+import PropTypes from 'prop-types';
+// Components
+import LoginForm from '../components/LoginForm';
+// Actions
+import { login } from '../epics/session'
 
-class Login extends React.Component {
+export default class Login extends Component {
+  static propTypes = {
+    login: PropTypes.func.isRequired
+  };
+
   state = {
-    loading: false,
-    email: 'luis.garcialuna@outlook.com',
-    password: 'password',
     message: ''
   };
 
-  onInputChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    const { password, email } = this.state;
-    try {
-      login(email, password);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  canContinue = () => {
-    const { password, email } = this.state;
-    return password && email;
+  handleSubmit = (values) => {
+    this.props.login(values.email, values.password);
   };
 
   render() {
-    const { message, email, password, loading } = this.state;
+    const { message } = this.state;
     return (
       <>
         <div className="container">
@@ -47,31 +37,7 @@ class Login extends React.Component {
                       { message }
                     </div>
                   ) : null }
-                  <form onSubmit={ this.handleSubmit }>
-                    <input
-                      name="email"
-                      type="text"
-                      onChange={ this.onInputChange }
-                      value={ email }
-                      placeholder="Correo electrónico"/>
-                    <input
-                      name="password"
-                      type="password"
-                      onChange={ this.onInputChange }
-                      value={ password }
-                      placeholder="Contraseña"/>
-                    <button
-                      disabled={ !this.canContinue() }
-                      type="submit"
-                      className="primary block">
-                      Continuar
-                    </button>
-                    <br/>
-                    { loading ? (
-                      <img
-                        alt="loader"/>
-                    ) : false }
-                  </form>
+                  <LoginForm onSubmit={ this.handleSubmit } />
                 </div>
                 <p className="center">
 
@@ -91,6 +57,4 @@ class Login extends React.Component {
       </>
     );
   }
-}
-
-export default Login;
+};

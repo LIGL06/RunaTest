@@ -1,8 +1,11 @@
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs'
+import { mergeMap, map } from 'rxjs/operators';
+import { ofType } from 'redux-observable';
 import { ajax } from 'rxjs/ajax';
 
 export const LOGIN_START = 'session/LOGIN_START';
-export const LOGIN_FULLFILLED = 'session/LOGIN_FULLFILLED';
+export const LOGIN_COMPLETED = 'session/LOGIN_COMPLETED';
+export const LOGIN_REJECTED = 'session/LOGIN_REJECTED';
 
 export const login = (username, password) => ( {
   type: LOGIN_START,
@@ -12,38 +15,44 @@ export const login = (username, password) => ( {
   }
 } );
 
-export const loginFullfilled = () => ( {
-  type: LOGIN_FULLFILLED
+export const loginCompleted = payload => ( {
+  type: LOGIN_COMPLETED,
+  payload
 } );
 
-export const loginStartEpic = (action$) => {
-  return action$.ofType(LOGIN_START)
-    .map(action =>
-      ajax.post(
-        'http://localhost:9000/api/session',
-        action.paylaod,
-        { 'Content-Type': 'application/json' }
-      ).pipe(
-        map(response => LOGIN_FULLFILLED(response))
-      )
-    )
-};
+export const loginRejected = message => ( {
+  type: LOGIN_REJECTED,
+  message
+} );
+
+export const loginEpic = action$ => action$.pipe(
+  ofType(LOGIN_START),mergeMap(action => 
+    ajax.post('https://localhost:9000/api/login', action.payload, {'Content-Type': 'application/json'})
+    .pipe(map(response => loginCompleted(response)))
+  )
+);
 
 export const session = (state = {
-  loading: true
+  loading: true,
+  session: null
 }, action) => {
   switch (action.type) {
-    case LOGIN_FULLFILLED:
-      return {
-        ...state,
-        loading: false,
-        [action.payload]: action.payload
-      };
     case LOGIN_START:
       return {
         ...state,
         loading: false
       };
+    case LOGIN_COMPLETED:
+      return {
+        ...state,
+        loading: false,
+        session: [...action.payload]
+      };
+    case LOGIN_REJECTED:
+      return {
+        ...state,
+        loading: false
+      }
     default:
       return state;
   }
