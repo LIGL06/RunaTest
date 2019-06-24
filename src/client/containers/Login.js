@@ -1,4 +1,5 @@
 import React from 'react';
+import { login } from '../modules/session'
 
 class Login extends React.Component {
   state = {
@@ -14,9 +15,13 @@ class Login extends React.Component {
   };
 
   handleSubmit = (event) => {
-    const { history, location } = this.props;
     event.preventDefault();
-    console.log(this.props);
+    const { password, email } = this.state;
+    try {
+      login(email, password);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   canContinue = () => {

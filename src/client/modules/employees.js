@@ -44,9 +44,13 @@ export const employees = (state = {
             return {
                 ...state,
                 loading: false,
-                [action.payload.login]: action.payload
-            };
-
+                [action.payload]: action.payload
+            }
+        case GET_EMPLOYEES:
+            return {
+                ...state,
+                loading: false
+            }    
         default:
             return state;
     }
