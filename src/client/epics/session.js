@@ -1,52 +1,20 @@
-import { Observable } from 'rxjs'
-import { mergeMap, map } from 'rxjs/operators';
-import { ofType } from 'redux-observable';
-import { ajax } from 'rxjs/ajax';
+import axios from 'axios';
+export const LOGIN_START = 'LOGIN_START';
+export const LOGIN_COMPLETED = 'LOGIN_COMPLETED';
+export const LOGIN_REJECTED = 'LOGIN_REJECTED';
 
-export const LOGIN_START = 'session/LOGIN_START';
-export const LOGIN_COMPLETED = 'session/LOGIN_COMPLETED';
-export const LOGIN_REJECTED = 'session/LOGIN_REJECTED';
-
-export const login = (username, password) => ( {
-  type: LOGIN_START,
-  payload: {
-    username,
-    password
-  }
-} );
-
-export const loginCompleted = payload => ( {
-  type: LOGIN_COMPLETED,
-  payload
-} );
-
-export const loginRejected = message => ( {
-  type: LOGIN_REJECTED,
-  message
-} );
-
-export const loginEpic = action$ => action$.pipe(
-  ofType(LOGIN_START),mergeMap(action => 
-    ajax.post('https://localhost:9000/api/login', action.payload, {'Content-Type': 'application/json'})
-    .pipe(map(response => loginCompleted(response)))
-  )
-);
-
-export const session = (state = {
-  loading: true,
-  session: null
-}, action) => {
+export default function session(state = {loading: true}, action = {}){
   switch (action.type) {
-    case LOGIN_START:
-      return {
-        ...state,
-        loading: false
-      };
     case LOGIN_COMPLETED:
       return {
         ...state,
         loading: false,
-        session: [...action.payload]
+        [action.payload.session]: action.payload
+      };
+    case LOGIN_START:
+      return {
+        ...state,
+        loading: false
       };
     case LOGIN_REJECTED:
       return {
@@ -57,3 +25,33 @@ export const session = (state = {
       return state;
   }
 };
+
+export function login(payload) {
+  return {
+  type: LOGIN_START,
+  payload: {...payload}
+}};
+
+export function loginCompleted(payload){
+  return {
+  type: LOGIN_COMPLETED,
+  payload}
+};
+
+export function loginRejected(message) {
+  return { type: LOGIN_REJECTED,
+  message
+} };
+
+export const loginEpic = action => {
+  login(action);
+  axios
+    .post('/api/session', action)
+    .then(res => {
+        console.log(res.data);
+        // axios.defaults.headers.common['X-Jwt-Token'] = localStorage.token;
+        loginCompleted(res.data);
+    }).catch(err => {
+        console.error(err);
+    });
+}

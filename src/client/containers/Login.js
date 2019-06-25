@@ -1,22 +1,20 @@
 // Dependencies
 import React, { Component }  from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 // Components
 import LoginForm from '../components/LoginForm';
+import { loginEpic } from '../epics/session';
 // Actions
-import { login } from '../epics/session'
 
 export default class Login extends Component {
-  static propTypes = {
-    login: PropTypes.func.isRequired
-  };
-
   state = {
-    message: ''
+    message: '',
+    session: ''
   };
 
   handleSubmit = (values) => {
-    this.props.login(values.email, values.password);
+    loginEpic(values);
   };
 
   render() {
@@ -37,7 +35,7 @@ export default class Login extends Component {
                       { message }
                     </div>
                   ) : null }
-                  <LoginForm onSubmit={ this.handleSubmit } />
+                  <LoginForm onSubmit={this.handleSubmit}/>
                 </div>
                 <p className="center">
 
