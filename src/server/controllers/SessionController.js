@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import Router from 'koa-router';
 import moment from 'moment-timezone';
 import { logger } from '../modules';
+import User from '../models/User';
 
 require('dotenv')
   .config();
@@ -9,9 +10,9 @@ require('dotenv')
 const SessionController = Router({ prefix: '/session' });
 
 SessionController.post('/login', async (ctx) => {
-    const payload = {
-        ...ctx.request.body
-    };
+  const payload = {
+      ...ctx.request.body
+  };
   if (!ctx.request.body.password) {
     ctx.status = 400;
     ctx.body = { error: 'Credenciales inválidas' };

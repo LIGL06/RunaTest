@@ -15,7 +15,7 @@ const env = NODE_ENV || 'development';
 const config = {
   [env]: {
     client: 'pg',
-    version: '9.6.13',
+    version: '9.6',
     connection: {
       host: PG_HOST,
       port: PG_PORT,
@@ -27,17 +27,7 @@ const config = {
       timezone: '-06:00'
     },
     pool: {
-      afterCreate: function (conn, done) {
-        conn.query('SET timezone="CDT";', function (err) {
-          if (err) {
-            done(err, conn);
-          } else {
-            conn.query('SELECT set_limit(0.01);', function (err) {
-              done(err, conn);
-            });
-          }
-        });
-      }
+       
     },
     acquireConnectionTimeout: 10000,
     migrations: {

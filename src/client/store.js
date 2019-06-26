@@ -1,14 +1,12 @@
-import { applyMiddleware, compose, createStore } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
+import { applyMiddleware, createStore, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-import rootReducer from './reducers';
-import rootEpic from './epics';
+import rootReducer from './reducer';
 
-export const epicMiddleware = createEpicMiddleware();
 export const history = createBrowserHistory();
 export const middleware = [
-  epicMiddleware,
+  thunk,
   routerMiddleware(history)
 ];
 
@@ -16,10 +14,12 @@ export default function configureStore(preloadedState) {
   const store = createStore(
     rootReducer(history),
     preloadedState,
-    applyMiddleware(
-      ...middleware
+    compose(
+      applyMiddleware(
+        ...middleware
+      ),
+      compose
     )
   );
-  epicMiddleware.run(rootEpic);
   return store;
 }

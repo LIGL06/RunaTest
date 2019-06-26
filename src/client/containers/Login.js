@@ -1,20 +1,24 @@
 // Dependencies
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 // Components
 import LoginForm from '../components/LoginForm';
-import { loginEpic } from '../epics/session';
+import { postLogin } from '../actions/session';
+import PropTypes from 'prop-types';
 // Actions
 
-export default class Login extends Component {
+class Login extends Component {
+  static propTypes = {
+    postLogin: PropTypes.func.isRequired
+  };
+
   state = {
     message: '',
     session: ''
   };
 
   handleSubmit = (values) => {
-    loginEpic(values);
+    this.props.postLogin(values);
   };
 
   render() {
@@ -56,3 +60,7 @@ export default class Login extends Component {
     );
   }
 };
+
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps, { postLogin })(Login);
