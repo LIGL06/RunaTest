@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 // Containers
 
 // Components
+import Home from '../components/Home';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Dashboard extends React.Component {
       delete localStorage.token;
       return <Redirect to="/login"/>;
     }
-    const { user } = session;
+    const { user } = session.session;
     return (
       <>
         {/*<Sidebar user={ user } location={ location }/>*/ }
@@ -38,7 +39,7 @@ class Dashboard extends React.Component {
         <div className="dashboard">
           <div className="container">
             <Switch>
-              { /*<Route path="/" component={ () => <Home user={ user }/> }/>*/ }
+              <Route path="/" component={ () => <Home user={ user }/> }/>
             </Switch>
           </div>
         </div>

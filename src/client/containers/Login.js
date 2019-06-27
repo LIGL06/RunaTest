@@ -5,15 +5,9 @@ import { connect } from 'react-redux';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
 import { postLogin, postSignUp } from '../actions/session';
-import PropTypes from 'prop-types';
 // Actions
 
 class Login extends Component {
-  static propTypes = {
-    postLogin: PropTypes.func.isRequired,
-    postSignUp: PropTypes.func.isRequired
-  };
-
   state = {
     message: '',
     logginIn: true
@@ -25,11 +19,27 @@ class Login extends Component {
   }
 
   handleSubmit = (values) => {
-    this.props.postLogin(values).then(response => console.log(response));
+    const {dispatch, history} = this.props;
+    dispatch(
+      postLogin(values)
+    ).then(() => {
+      const {session, token} = this.props.session;
+      if(session && token){
+        history.push('/');
+      }
+    });
   };
 
   handleSignup = (values) => {
-    this.props.postSignUp(values).then(response => console.log(response));
+    const {dispatch, history} = this.props;
+    dispatch(
+      postSignUp(values)
+    ).then(() => {
+      const {session, token} = this.props.session;
+      if(session && token){
+        history.push('/');
+      }
+    });
   };
 
   render() {
@@ -79,6 +89,8 @@ class Login extends Component {
   }
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  session: state.session
+});
 
-export default connect(mapStateToProps, { postLogin, postSignUp })(Login);
+export default connect(mapStateToProps)(Login);

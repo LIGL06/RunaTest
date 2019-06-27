@@ -7,16 +7,17 @@ export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_COMPLETED = 'SIGNUP_COMPLETED';
 export const SIGNUP_REJECTED = 'SIGNUP_REJECTED';
 
-export const login = (payload) => {
+export const login = () => {
   return {
-  type: LOGIN_START,
-  payload: {...payload}
+  type: LOGIN_START
 }};
 
-export const loginCompleted = (data) => {
+export const loginCompleted = (session, token) => {
   return {
   type: LOGIN_COMPLETED,
-  payload: {...data}}
+  session,
+  token
+  }
 };
 
 export const loginRejected = (message) => {
@@ -24,16 +25,17 @@ export const loginRejected = (message) => {
   message
 } };
 
-export const signup = (payload) => {
+export const signup = () => {
   return {
-  type: SIGNUP_START,
-  payload: {...payload}
+  type: SIGNUP_START
 }};
 
-export const signupCompleted = (data) => {
+export const signupCompleted = (session, token) => {
   return {
   type: SIGNUP_COMPLETED,
-  payload: {...data}}
+  session,
+  token
+  }
 };
 
 export const signupRejected = (message) => {
@@ -42,26 +44,42 @@ export const signupRejected = (message) => {
 } };
 
 export const postLogin = action => async (dispatch) => {
-  dispatch(login(action));
+  dispatch(login());
     return axios.post('/api/session/login', action).then(res => {
-      dispatch(loginCompleted(res.data));
+      const {token, session} = res.data;
+      dispatch(loginCompleted(session, token));
+      localStorage.token = token;
+      localStorage.session = JSON.stringify(session);
+      axios.defaults.headers.common['X-Jwt-Token'] = token;
     }).catch(error => dispatch(loginRejected(error)));
 }
 
 export const postSignUp = action => async (dispatch) => {
-  dispatch(signup(action));
+  dispatch(signup());
     return axios.post('/api/session/register', action).then(res => {
-      dispatch(signupCompleted(res.data));
+      const {token, session} = res.data;
+      dispatch(loginCompleted(session, token));
+      localStorage.token = token;
+      localStorage.session = JSON.stringify(session);
+      axios.defaults.headers.common['X-Jwt-Token'] = token;
     }).catch(error => dispatch(signupRejected(error)));
 }
 
-export default function(state = {loading: true}, action = {}){
+export const logout = action => async (dispatch) => {
+  delete localStorage.session;
+  delete localStorage.token;
+  window.location = '/login';
+  return null;
+}
+
+export default function(state = {loading: true, session: null, token: null}, action = {}){
   switch (action.type) {
     case LOGIN_COMPLETED:
       return {
         ...state,
         loading: false,
-        session: action.payload.session
+        session: action.session,
+        token: action.token
       };
     case LOGIN_START:
       return {
@@ -77,7 +95,8 @@ export default function(state = {loading: true}, action = {}){
       return {
         ...state,
         loading: false,
-        session: action.payload
+        session: action.session,
+        token: action.token
       };
     case SIGNUP_START:
       return {

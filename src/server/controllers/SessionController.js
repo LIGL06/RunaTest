@@ -77,6 +77,13 @@ SessionController.post('/login', async (ctx) => {
   const [user] = await User.get({
     email: payload.email
   });
+  if(!user){
+    ctx.status = 401;
+    ctx.body = {
+      error: 'Invalid credentials'
+    };
+    return;
+  }
   const session = {
     user: {
       id: user.id,
@@ -103,7 +110,7 @@ SessionController.post('/login', async (ctx) => {
       } else {
         ctx.status = 401;
         ctx.body = {
-          error: 'Credenciales inválidas'
+          error: 'Invalid credentials'
         };
         resolve();
       }
