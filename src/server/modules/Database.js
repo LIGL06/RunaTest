@@ -53,7 +53,7 @@ const Database = {
     // Callback interface
     Database.client.raw(sql, params)
       .asCallback((err, results) => {
-        const fields = results ? results.slice(1) : null;
+        const fields = results ? results[1] : null;
         results = results ? results[0] : null;
         callback(err, results, fields);
       });

@@ -7,7 +7,7 @@ const User = {
    * @returns {*}
    */
   get(condition) {
-    return Database.client('user')
+    return Database.client('users')
       .where(condition);
   },
 
@@ -17,7 +17,7 @@ const User = {
    * @return {Promise}
    */
   create(parameters) {
-    return Database.client('user')
+    return Database.client('users')
       .insert(parameters);
   },
 
