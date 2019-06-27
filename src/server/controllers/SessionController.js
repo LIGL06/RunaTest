@@ -22,21 +22,43 @@ SessionController.post('/register', async (ctx) => {
     email: payload.email
   });
   if (!user) {
-    bcrypt.hash(payload.password, 10, async (err, hash) => {
-      if (err) console.error(err);
-      const userFields = {
-        password: hash,
-        email: payload.email,
-        created_at: moment.tz('America/Monterrey')
-          .format('YYYY-MM-DD HH:mm:ss')
-      };
-      const [newId] = await User.create(userFields);
-      id = newId;
+    await new Promise((resolve, reject) => {
+      bcrypt.hash(payload.password, 10, async (err, hash) => {
+        if (err) reject(err);
+        const userFields = {
+          legalName: payload.legalName,
+          legalRfc: payload.legalRfc,
+          password: hash,
+          email: payload.email,
+          created_at: moment.tz('America/Monterrey')
+            .format('YYYY-MM-DD HH:mm:ss')
+        };
+        const session = {
+          user: {...userFields}
+        };
+        // const [newId] = await User.create(userFields);
+        jwt.sign(session, process.env.JWT_SIGN, {
+          expiresIn: '2h'
+        }, (err, token) => {
+          if (err) reject(err);
+          logger.info(`Session created: ${session.user.legalName}, ${session.user.legalRfc}`);
+          ctx.body = {
+            session,
+            token
+          };
+          resolve();
+        });
+        logger.info('New user registration', {
+          ...userFields,
+          // newId
+        });
+      });
     });
-    logger.info('New user registration', {
-      ...userFields,
-      id
-    });
+  } else {
+    ctx.status = 401;
+    ctx.body = {
+      error: 'Usuario registrado'
+    };
   }
 });
 

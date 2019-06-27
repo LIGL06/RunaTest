@@ -3,26 +3,37 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 // Components
 import LoginForm from '../components/LoginForm';
-import { postLogin } from '../actions/session';
+import SignUpForm from '../components/SignUpForm';
+import { postLogin, postSignUp } from '../actions/session';
 import PropTypes from 'prop-types';
 // Actions
 
 class Login extends Component {
   static propTypes = {
-    postLogin: PropTypes.func.isRequired
+    postLogin: PropTypes.func.isRequired,
+    postSignUp: PropTypes.func.isRequired
   };
 
   state = {
     message: '',
-    session: ''
+    logginIn: true
   };
 
+  changeView = () => {
+    const { logginIn } = this.state;
+    this.setState({logginIn: !logginIn});
+  }
+
   handleSubmit = (values) => {
-    this.props.postLogin(values);
+    this.props.postLogin(values).then(response => console.log(response));
+  };
+
+  handleSignup = (values) => {
+    this.props.postSignUp(values).then(response => console.log(response));
   };
 
   render() {
-    const { message } = this.state;
+    const { message, logginIn } = this.state;
     return (
       <>
         <div className="container">
@@ -39,7 +50,14 @@ class Login extends Component {
                       { message }
                     </div>
                   ) : null }
-                  <LoginForm onSubmit={this.handleSubmit}/>
+                  {
+                    logginIn ? (
+                    <LoginForm onSubmit={this.handleSubmit}/>) : (
+                    <SignUpForm onSubmit={this.handleSignup}/>)
+                  }
+                  <button onClick={this.changeView} className="neutral">{
+                    logginIn ? 'Regístrase' : 'Iniciar'
+                  }</button>
                 </div>
                 <p className="center">
 
@@ -63,4 +81,4 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({});
 
-export default connect(mapStateToProps, { postLogin })(Login);
+export default connect(mapStateToProps, { postLogin, postSignUp })(Login);

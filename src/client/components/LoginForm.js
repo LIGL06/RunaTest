@@ -15,16 +15,22 @@ class LoginForm extends Component {
   render (){
   const { error, handleSubmit } = this.props;
     return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className="container page">
+      <div className="row">
+      <div className="col-md-4 col-md-offset-4">
         <label htmlFor="email">Email</label>
         <Field name="email" component={renderField} type="email"/>
       </div>
-      <div>
+      </div>
+      <div className="row">
+      <div className="col-md-4 col-md-offset-4">
         <label htmlFor="password">Password</label>
         <Field name="password" component={renderField} type="password"/>
       </div>
-      <button type="submit" className="button">Continuar</button>
+      </div>
+      <div className="row">
+      <button type="submit" className="primary col-md-offset-9">Login</button>
+      </div>
       {error && <strong>{error}</strong>}
     </form>
     );
