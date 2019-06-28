@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router';
 // Containers
-
+import Employees from './Employees';
 // Components
 import Home from '../components/Home';
 import Header from '../components/Header';
@@ -33,6 +33,7 @@ class Dashboard extends React.Component {
         <div className="dashboard">
           <div className="container">
             <Switch>
+              <Route path="/employees" component={Employees}/>
               <Route path="/" component={ () => <Home user={ user }/> }/>
             </Switch>
           </div>

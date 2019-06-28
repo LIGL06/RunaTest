@@ -1,11 +1,11 @@
-import { ofType } from 'redux-observable';
-import { map } from 'rxjs/operators';
-
-const GET_EMPLOYEES = 'employees/GET_EMPLOYEES';
-const GET_EMPLOYEE = 'employees/GET_EMPLOYEE';
-const GET_EMPLOYEES_FULFILLED = 'employees/GET_EMPLOYEES_FULFILLED';
-const GET_EMPLOYEE_FULFILLED = 'employees/GET_EMPLOYEE_FULFILLED';
-
+// Deps
+import axios from 'axios';
+// Types
+const GET_EMPLOYEES = 'GET_EMPLOYEES';
+const GET_EMPLOYEE = 'GET_EMPLOYEE';
+const GET_EMPLOYEES_FULFILLED = 'GET_EMPLOYEES_FULFILLED';
+const GET_EMPLOYEE_FULFILLED = 'GET_EMPLOYEE_FULFILLED';
+// Actions
 export const fetchEmployees = () => ( {
   type: GET_EMPLOYEES,
   payload: ''
@@ -21,30 +21,38 @@ export const fetchEmployeeFulfilled = payload => ( {
   payload
 } );
 
-export const fetchEmployeesFulfilled = payload => ( {
+export const fetchEmployeesFulfilled = employees => ( {
   type: GET_EMPLOYEES_FULFILLED,
-  payload
+  payload: employees
 } );
 
-export const fetchEmployeesEpic = action$ => action$.pipe(
-  ofType(GET_EMPLOYEES),
-  map(action =>
-    ajax.getJSON(`http://localhost:9000/api/employees`).pipe(
-      map(response => fetchEmployeesFulfilled(response))
-    )
-  )
-);
+export const getEmployees = () => async (dispatch) =>{
+  dispatch(fetchEmployees());
+  await axios.get('/api/employees/list').then(res => {
+    if(res.data.employees){
+      const {employees} = res.data;
+      dispatch(fetchEmployeesFulfilled(employees));
+    }
+  }).catch(error => console.error(error));
+};
 
+export const getEmployee = (action) => async (dispatch) =>{
+  dispatch(fetchEmployees());
+  await axios.get(`/api/employees/list/${action}`).then(res => {
+    if(res.data.employees){
+      const {employees} = res.data;
+      dispatch(fetchEmployeeFulfilled(employees));
+    }
+  }).catch(error => console.error(error));
+};
 
-export const employees = (state = {
-  loading: true
-}, action) => {
+export default function(state = {loading: true, employees:[]}, action){
   switch (action.type) {
     case GET_EMPLOYEES_FULFILLED:
       return {
         ...state,
-        loading: false,
-        [action.payload]: action.payload
+        employees: action.employees,
+        loading: false
       };
     case GET_EMPLOYEES:
       return {
