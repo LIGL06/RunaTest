@@ -1,6 +1,7 @@
 // Dependencies
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
+
 // Components
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
@@ -19,27 +20,17 @@ class Login extends Component {
   }
 
   handleSubmit = (values) => {
-    const {dispatch, history} = this.props;
+    const {dispatch} = this.props;
     dispatch(
       postLogin(values)
-    ).then(() => {
-      const {session, token} = this.props.session;
-      if(session && token){
-        history.push('/');
-      }
-    });
+    );
   };
 
   handleSignup = (values) => {
-    const {dispatch, history} = this.props;
+    const {dispatch} = this.props;
     dispatch(
       postSignUp(values)
-    ).then(() => {
-      const {session, token} = this.props.session;
-      if(session && token){
-        history.push('/');
-      }
-    });
+    );
   };
 
   render() {

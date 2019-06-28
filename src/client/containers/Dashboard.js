@@ -1,41 +1,35 @@
+// Deps
 import React from 'react';
-import { Route, Redirect, Switch } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
-
+import { connect } from 'react-redux';
+import { Route, Redirect, Switch } from 'react-router';
 // Containers
 
 // Components
 import Home from '../components/Home';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      session: {}
+    }
   }
 
+  componentDidMount(){
+    const { session } =  this.props || this.props.session || this.state;
+    this.setState({session});
+  }
+ 
   render() {
-    // Require session to access
-    const { session, location } = this.props;
-    if (!session) {
-      return (
-        <Redirect to={ {
-          pathname: '/login',
-          state: {
-            from: location.pathname
-          }
-        } }/>
-      );
-    }
-    if (jwt.decode(localStorage.token).exp < Date.now() / 1000) {
-      alert('Sesión vencida');
-      delete localStorage.session;
-      delete localStorage.token;
-      return <Redirect to="/login"/>;
-    }
-    const { user } = session.session;
+    const { session } =  this.props || this.props.session || this.state;
+    if (!session) return <Redirect to="/login"/>;
+    const { user } = session;
     return (
       <>
-        {/*<Sidebar user={ user } location={ location }/>*/ }
-        {/*<Header user={ session.user }/>*/ }
+        <Sidebar user={ user } />
+        <Header user={ user }/>
         <div className="dashboard">
           <div className="container">
             <Switch>
@@ -48,4 +42,8 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  session: state.session
+});
+
+export default connect(mapStateToProps)(Dashboard);
