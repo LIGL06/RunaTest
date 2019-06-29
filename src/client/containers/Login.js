@@ -38,12 +38,10 @@ class Login extends Component {
     return (
       <>
         <div className="container">
-          <img
-            className="auth-logo"
-            alt="Logo"
-            style={ { maxWidth: 320, marginBottom: 30 } }/>
           <div className="row">
-            <div className="col-xs-12">
+            <div className="col-xs-12 center-md">
+            <i className="fas fa-history fa-5x" />
+            <h1>Time control</h1>
               <div className="wrapper-auth">
                 <div className="page">
                   { message ? (
@@ -51,14 +49,15 @@ class Login extends Component {
                       { message }
                     </div>
                   ) : null }
-                  {
+                  <LoginForm onSubmit={this.handleSubmit}/>
+                  {/* {
                     logginIn ? (
                     <LoginForm onSubmit={this.handleSubmit}/>) : (
                     <SignUpForm onSubmit={this.handleSignup}/>)
-                  }
-                  <button onClick={this.changeView} className="neutral">{
+                  } */}
+                  {/* <button onClick={this.changeView} className="neutral">{
                     logginIn ? 'Regístrase' : 'Iniciar'
-                  }</button>
+                  }</button> */}
                 </div>
                 <p className="center">
 

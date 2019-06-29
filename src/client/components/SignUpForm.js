@@ -15,23 +15,23 @@ class SignUpForm extends Component {
   render (){
   const { error, handleSubmit } = this.props;
     return (
-    <form onSubmit={handleSubmit} className="container page">
+    <form onSubmit={handleSubmit} className="container">
       <div className="row">
-        <div className="col-md-4 col-md-offset-2">
+        <div>
           <label htmlFor="legalName">Nombre</label>
           <Field name="legalName" component={renderField} type="text"/>
         </div>
-        <div className="col-md-4">
+        <div>
           <label htmlFor="legalRfc">RFC</label>
           <Field name="legalRfc" component={renderField} type="text"/>
         </div> 
       </div>
       <div className="row">
-      <div className="col-md-4 col-md-offset-2">
+        <div>
           <label htmlFor="email">Email</label>
           <Field name="email" component={renderField} type="email"/>
         </div>
-        <div className="col-md-4">
+        <div>
         <label htmlFor="password">Password</label>
         <Field name="password" component={renderField} type="password"/>
         </div>

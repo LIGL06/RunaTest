@@ -12,13 +12,13 @@ const Sidebar = ({user}) => (
       <li>
         <NavLink to="/new">
           <i className="fas fa-user-plus" />
-          Nuevo Empleado
+          &nbsp;Nuevo Empleado
         </NavLink>
       </li>
       <li>
         <NavLink to="/employees">
         <i className="fas fa-users" />
-          Mis Empleados
+        &nbsp;Mis Empleados
         </NavLink>
       </li>
       <li className="scrollable-nav">  

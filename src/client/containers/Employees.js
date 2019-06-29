@@ -12,7 +12,8 @@ class Employees extends React.Component {
     const { session } =  this.props || this.props.session || this.state;
     this.setState({session});
     const {dispatch} = this.props;
-    dispatch(getEmployees(values));
+    console.log(dispatch);
+    // dispatch(getEmployees(values));
   }
 
   render() {

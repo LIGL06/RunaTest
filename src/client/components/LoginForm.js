@@ -15,15 +15,15 @@ class LoginForm extends Component {
   render (){
   const { error, handleSubmit } = this.props;
     return (
-    <form onSubmit={handleSubmit} className="container page">
+    <form onSubmit={handleSubmit} className="container">
       <div className="row">
-      <div className="col-md-4 col-md-offset-4">
-        <label htmlFor="email">Email</label>
+        <div className="col-md-10 col-md-offset-1">
+        <label htmlFor="email">Username</label>
         <Field name="email" component={renderField} type="email"/>
       </div>
       </div>
       <div className="row">
-      <div className="col-md-4 col-md-offset-4">
+        <div className="col-md-10 col-md-offset-1">
         <label htmlFor="password">Password</label>
         <Field name="password" component={renderField} type="password"/>
       </div>
