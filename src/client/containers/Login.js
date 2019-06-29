@@ -1,17 +1,15 @@
 // Dependencies
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
-
 // Components
 import LoginForm from '../components/LoginForm';
-import SignUpForm from '../components/SignUpForm';
-import { postLogin, postSignUp } from '../actions/session';
 // Actions
+import { postLogin } from '../actions/session';
 
 class Login extends Component {
   state = {
     message: '',
-    logginIn: true
+    loading: false
   };
 
   changeView = () => {
@@ -26,22 +24,15 @@ class Login extends Component {
     );
   };
 
-  handleSignup = (values) => {
-    const {dispatch} = this.props;
-    dispatch(
-      postSignUp(values)
-    );
-  };
-
   render() {
-    const { message, logginIn } = this.state;
+    const { message, loading } = this.state;
     return (
       <>
         <div className="container">
           <div className="row">
             <div className="col-xs-12 center-md">
-            <i className="fas fa-history fa-5x" />
-            <h1>Time control</h1>
+            <i className="fas fa-history fa-5x"  style={{color:"#C28662", paddingTop: 100}}/>
+            <h1 style={{color:"#869197", paddingTop: 10}}>Time control</h1>
               <div className="wrapper-auth">
                 <div className="page">
                   { message ? (
@@ -50,17 +41,8 @@ class Login extends Component {
                     </div>
                   ) : null }
                   <LoginForm onSubmit={this.handleSubmit}/>
-                  {/* {
-                    logginIn ? (
-                    <LoginForm onSubmit={this.handleSubmit}/>) : (
-                    <SignUpForm onSubmit={this.handleSignup}/>)
-                  } */}
-                  {/* <button onClick={this.changeView} className="neutral">{
-                    logginIn ? 'Regístrase' : 'Iniciar'
-                  }</button> */}
                 </div>
                 <p className="center">
-
                 </p>
                 <a href="https://www.linkedin.com/in/luisgarcialuna/" className="center">
                   LinkedIn

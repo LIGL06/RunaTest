@@ -14,15 +14,14 @@ export const login = () => {
   type: LOGIN_START
 }};
 
-export const loginCompleted = (session, token) => {
+export const loginCompleted = session => {
   return {
   type: LOGIN_COMPLETED,
-  session: {...session},
-  token
+  user: {...session}
   }
 };
 
-export const loginRejected = (message) => {
+export const loginRejected = message => {
   return { type: LOGIN_REJECTED,
   message
 } };
@@ -32,15 +31,14 @@ export const signup = () => {
   type: SIGNUP_START
 }};
 
-export const signupCompleted = (session, token) => {
+export const signupCompleted = session => {
   return {
   type: SIGNUP_COMPLETED,
-  session: JSON.parse(session.user),
-  token: token
+  user: session
   }
 };
 
-export const signupRejected = (message) => {
+export const signupRejected = message => {
   return { type: SIGNUP_REJECTED,
   message
 } };
@@ -50,7 +48,7 @@ export const postLogin = action => async (dispatch) => {
     await axios.post('/api/session/login', action).then(res => {
       if(res.data.token && res.data.session){
         const {token, session} = res.data;
-        dispatch(loginCompleted(session, token));
+        dispatch(loginCompleted(session.user, token));
         localStorage.token = token;
         localStorage.session = JSON.stringify(session);
         axios.defaults.headers.common['X-Jwt-Token'] = token;
@@ -82,13 +80,12 @@ export const SessionActions = {
   }
 }
 // Reducer
-export default function(state = {loading: true, session: null, token: null}, action){
+export default function(state = {loading: true, user: {}, message: null}, action){
   switch (action.type) {
     case LOGIN_COMPLETED:
       return {
         ...state,
-        session: action.session,
-        token: action.token,
+        user: action.user,        
         loading: false,
       };
     case LOGIN_START:
@@ -104,8 +101,7 @@ export default function(state = {loading: true, session: null, token: null}, act
     case SIGNUP_COMPLETED:
       return {
         ...state,
-        session: action.session,
-        token: action.token,
+        user: action.user,
         loading: false,
       };
     case SIGNUP_START:

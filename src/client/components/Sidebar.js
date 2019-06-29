@@ -3,10 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 
 const Sidebar = ({user}) => (
   <div className="sidebar hide-on-med-and-down">
-    <Link className="logo" to="/">
-      <i className="fas fa-history fa-5x" />
-      <br />
-      Time control
+    <Link className="logo center-md" to="/">
+      <i className="fas fa-history fa-5x"  style={{color:"#C28662", paddingBottom: 10}} />
+      <h1 style={{color:"#fff"}}>Time control</h1>
     </Link>
     <nav>
       <li>

@@ -89,7 +89,8 @@ SessionController.post('/login', async (ctx) => {
       id: user.id,
       legalName: user.legalName,
       legalRfc: user.legalRfc,
-      email: user.email
+      email: user.email,
+      admin: user.admin
     }
   };
   await new Promise((resolve, reject) => {

@@ -10,11 +10,11 @@ const Home = ({ user }) => (
 
     <div className="shortcuts">
       <Link to="/new" className="shortcut">
-        <i className="fas fa-user-plus" />
+        <i className="fas fa-user-plus fa-2x" style={{color:"#8CBFB8", paddingBottom: 10}} />
         &nbsp;Nuevo Empleado
       </Link>
       <Link to="/employees" className="shortcut">
-        <i className="fas fa-users" />
+        <i className="fas fa-users fa-2x" style={{color:"#8CBFB8", paddingBottom: 10}} />
         &nbsp;Mis Empleados
       </Link>
     </div>

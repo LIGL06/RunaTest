@@ -1,6 +1,7 @@
 // Deps
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class Employees extends React.Component {
   constructor(props) {
@@ -18,9 +19,15 @@ class Employees extends React.Component {
 
   render() {
     return (
-      <>
-        <h1>Empleados</h1>
-      </>
+      <div className="row">
+      <div className="col-md-12">
+        <div className="titlebar">
+          <h1>Mis Empleados</h1>
+          <Link to="/new">Nuevo +</Link>
+        </div>
+        {/* TODO */}
+      </div>
+    </div>
     );
   }
 }

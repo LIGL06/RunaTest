@@ -5,11 +5,11 @@ const Header = ({user}) => (
   <div className="header">
     <Link to="/perfil">
     <i className="fas fa-user-alt" />
-    &nbsp;<span>{user.legalName}</span>
+    <span>&nbsp;{user.legalName}</span>
     </Link>
 
     <Link to="/logout">
-      <span className="logout"><i className="fas fa-sign-out-alt" />Cerrar Sesión</span>
+    <span className="logout"><i className="fas fa-sign-out-alt" />&nbsp;Cerrar Sesión</span>
     </Link>
   </div>
 );
