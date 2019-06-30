@@ -17,7 +17,7 @@ export const login = () => {
 export const loginCompleted = session => {
   return {
   type: LOGIN_COMPLETED,
-  user: {...session}
+  session
   }
 };
 
@@ -34,7 +34,7 @@ export const signup = () => {
 export const signupCompleted = session => {
   return {
   type: SIGNUP_COMPLETED,
-  user: session
+  session
   }
 };
 
@@ -48,7 +48,7 @@ export const postLogin = action => async (dispatch) => {
     await axios.post('/api/session/login', action).then(res => {
       if(res.data.token && res.data.session){
         const {token, session} = res.data;
-        dispatch(loginCompleted(session.user, token));
+        dispatch(loginCompleted(session, token));
         localStorage.token = token;
         localStorage.session = JSON.stringify(session);
         axios.defaults.headers.common['X-Jwt-Token'] = token;
@@ -80,12 +80,12 @@ export const SessionActions = {
   }
 }
 // Reducer
-export default function(state = {loading: true, user: {}, message: null}, action){
+export default function(state = {loading: true, session: {}, message: null}, action){
   switch (action.type) {
     case LOGIN_COMPLETED:
       return {
         ...state,
-        user: action.user,        
+        session: action.session,        
         loading: false,
       };
     case LOGIN_START:
@@ -101,7 +101,7 @@ export default function(state = {loading: true, user: {}, message: null}, action
     case SIGNUP_COMPLETED:
       return {
         ...state,
-        user: action.user,
+        session: action.session,
         loading: false,
       };
     case SIGNUP_START:

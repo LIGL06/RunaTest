@@ -3,9 +3,11 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import axios from 'axios';
+import moment from 'moment';
 import confStore, { history } from './store';
 import Application from './containers/Application';
 
+moment.locale('es');
 let store = confStore();
 
 if (localStorage.session) {

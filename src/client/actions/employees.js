@@ -7,46 +7,43 @@ const GET_EMPLOYEES_FULFILLED = 'GET_EMPLOYEES_FULFILLED';
 const GET_EMPLOYEE_FULFILLED = 'GET_EMPLOYEE_FULFILLED';
 // Actions
 export const fetchEmployees = () => ( {
-  type: GET_EMPLOYEES,
-  payload: ''
+  type: GET_EMPLOYEES
 } );
 
-export const fetchEmployee = id => ( {
+export const fetchEmployee = (id) => { 
+  return {
   type: GET_EMPLOYEE,
-  payload: id
-} );
+  id
+} };
 
-export const fetchEmployeeFulfilled = payload => ( {
+export const fetchEmployeeFulfilled = employee => { 
+  return {
   type: GET_EMPLOYEE_FULFILLED,
-  payload
-} );
+  employee
+} };
 
 export const fetchEmployeesFulfilled = employees => ( {
   type: GET_EMPLOYEES_FULFILLED,
-  payload: employees
+  employees
 } );
 
 export const getEmployees = () => async (dispatch) =>{
   dispatch(fetchEmployees());
   await axios.get('/api/employees/list').then(res => {
-    if(res.data.employees){
-      const {employees} = res.data;
-      dispatch(fetchEmployeesFulfilled(employees));
-    }
+    const employees = res.data;
+    dispatch(fetchEmployeesFulfilled(employees));
   }).catch(error => console.error(error));
 };
 
-export const getEmployee = (action) => async (dispatch) =>{
-  dispatch(fetchEmployees());
-  await axios.get(`/api/employees/list/${action}`).then(res => {
-    if(res.data.employees){
-      const {employees} = res.data;
-      dispatch(fetchEmployeeFulfilled(employees));
-    }
+export const getEmployee = (id) => async (dispatch) =>{
+  dispatch(fetchEmployee(id));
+  await axios.get(`/api/employees/get/${id}`).then(res => {
+    const employee = res.data;
+    dispatch(fetchEmployeeFulfilled(employee));
   }).catch(error => console.error(error));
 };
 
-export default function(state = {loading: true, employees:[]}, action){
+export default function(state = {loading: true, employees:[], employee: {}}, action){
   switch (action.type) {
     case GET_EMPLOYEES_FULFILLED:
       return {
@@ -55,6 +52,17 @@ export default function(state = {loading: true, employees:[]}, action){
         loading: false
       };
     case GET_EMPLOYEES:
+      return {
+        ...state,
+        loading: false
+      };
+    case GET_EMPLOYEE_FULFILLED:
+      return {
+        ...state,
+        employee: {...action.employee},
+        loading: false
+      };
+    case GET_EMPLOYEE:
       return {
         ...state,
         loading: false

@@ -5,6 +5,7 @@ import { Route, Redirect, Switch } from 'react-router';
 // Containers
 import NewEmployee from './NewEmployee';
 import Employees from './Employees';
+import EmployeePreview from './EmployeePreview';
 // Components
 import Home from '../components/Home';
 import Header from '../components/Header';
@@ -16,12 +17,9 @@ class Dashboard extends React.Component {
     this.state = {}
   }
 
-  componentDidMount(){
-    const { session } =  this.props;
-    this.setState({session});
-  }
+  componentDidMount(){}
  
-  render() {
+  render() {    
     const { session } = this.props || this.state;    
     if (!session) return <Redirect to="/login"/>;
     const { user } = session;
@@ -33,6 +31,7 @@ class Dashboard extends React.Component {
           <div className="container">
             <Switch>
               <Route path="/new" component={NewEmployee}/>
+              <Route path="/employees/:id" component={EmployeePreview}/>
               <Route path="/employees" component={Employees}/>
               <Route path="/" component={ () => <Home user={ user }/> }/>
             </Switch>
@@ -44,7 +43,7 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  session: state.session
+  ...state.session
 });
 
 export default connect(mapStateToProps)(Dashboard);
