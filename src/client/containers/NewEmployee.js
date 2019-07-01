@@ -31,7 +31,7 @@ class Login extends Component {
       <div className="col-md-12">
         <div className="titlebar">
           <h1>Nuevo Empleado</h1>
-          <Link to="/new">Nuevo +</Link>
+          <Link to="/employees">Mis empleados <i className="fas fa-users" /></Link>
         </div>
         <SignUpForm onSubmit={this.handleSignup}/>
       </div>

@@ -30,7 +30,7 @@ class Login extends Component {
       <>
         <div className="container">
           <div className="row">
-            <div className="col-xs-12 center-md">
+            <div className="col-xs-12 center-xs">
             <i className="fas fa-history fa-5x"  style={{color:"#C28662", paddingTop: 100}}/>
             <h1 style={{color:"#869197", paddingTop: 10}}>Time control</h1>
               <div className="wrapper-auth">

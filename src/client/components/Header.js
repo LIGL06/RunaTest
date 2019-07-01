@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Header = ({user}) => (
   <div className="header">
-    <Link to="/perfil">
+    <Link to="/profile">
     <i className="fas fa-user-alt" />
     <span>&nbsp;{user.legalName}</span>
     </Link>

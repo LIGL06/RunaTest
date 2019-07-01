@@ -6,10 +6,12 @@ import { Route, Redirect, Switch } from 'react-router';
 import NewEmployee from './NewEmployee';
 import Employees from './Employees';
 import EmployeePreview from './EmployeePreview';
+import EmployeeEdit from './EmployeeEdit';
 // Components
 import Home from '../components/Home';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import Profile from '../components/Profile';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -33,6 +35,8 @@ class Dashboard extends React.Component {
               <Route path="/new" component={NewEmployee}/>
               <Route path="/employees/:id" component={EmployeePreview}/>
               <Route path="/employees" component={Employees}/>
+              <Route path="/employee/details/:id" component={EmployeeEdit}/>
+              <Route path="/profile" component={ () => <Profile user={user} />}/>
               <Route path="/" component={ () => <Home user={ user }/> }/>
             </Switch>
           </div>

@@ -41,7 +41,7 @@ const Sidebar = ({user}) => (
     </nav>
     <nav className="extra">
       <li>
-
+        {/* Algo extra */}
       </li>
     </nav>
   </div>
