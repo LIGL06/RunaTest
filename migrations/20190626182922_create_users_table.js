@@ -5,7 +5,7 @@ exports.up = (knex) => {
       table.text('password')
       table.string('legalName', 100);
       table.string('legalRfc', 13);
-      table.boolean('admin', 0);
+      table.boolean('admin', false);
       table.timestamps();
     })
   };

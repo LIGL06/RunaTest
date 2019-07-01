@@ -4,10 +4,8 @@ import { push } from 'connected-react-router';
 // Types
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_COMPLETED = 'LOGIN_COMPLETED';
-export const LOGIN_REJECTED = 'LOGIN_REJECTED';
 export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_COMPLETED = 'SIGNUP_COMPLETED';
-export const SIGNUP_REJECTED = 'SIGNUP_REJECTED';
 // Actions
 export const login = () => {
   return {
@@ -31,10 +29,10 @@ export const signup = () => {
   type: SIGNUP_START
 }};
 
-export const signupCompleted = session => {
+export const signupCompleted = user => {
   return {
   type: SIGNUP_COMPLETED,
-  session
+  user
   }
 };
 
@@ -54,21 +52,17 @@ export const postLogin = action => async (dispatch) => {
         axios.defaults.headers.common['X-Jwt-Token'] = token;
         dispatch(push('/'));
       }
-    }).catch(error => dispatch(loginRejected(error)));
+    }).catch(error => console.error(error));
 }
 // Duck SignUp
 export const postSignUp = action => async (dispatch) => {
   dispatch(signup());
     return axios.post('/api/session/register', action).then(res => {
       if(res.data.token && res.data.session){
-        const {token, session} = res.data;
-        dispatch(loginCompleted(session, token));
-        localStorage.token = token;
-        localStorage.session = JSON.stringify(session);
-        axios.defaults.headers.common['X-Jwt-Token'] = token;
-        dispatch(push('/'));
+        dispatch(signupCompleted(res.data));
+        dispatch(push('/employees'));
       }
-    }).catch(error => dispatch(signupRejected(error)));
+    }).catch(error => console.error(error));
 }
 // Duck Logout
 export const SessionActions = {
@@ -80,7 +74,7 @@ export const SessionActions = {
   }
 }
 // Reducer
-export default function(state = {loading: true, session: {}, message: null}, action){
+export default function(state = {loading: true, session: {}, user: {}, message: null}, action){
   switch (action.type) {
     case LOGIN_COMPLETED:
       return {
@@ -92,28 +86,16 @@ export default function(state = {loading: true, session: {}, message: null}, act
       return {
         ...state,
       };
-    case LOGIN_REJECTED:
-      return {
-        ...state,
-        message: action.message,
-        loading: false,
-      }
     case SIGNUP_COMPLETED:
       return {
         ...state,
-        session: action.session,
+        user: action.user,
         loading: false,
       };
     case SIGNUP_START:
       return {
         ...state,
       };
-    case SIGNUP_REJECTED:
-      return {
-        ...state,
-        message: action.message,
-        loading: false,
-      }
     default:
       return state;
   }

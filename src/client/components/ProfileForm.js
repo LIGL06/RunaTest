@@ -10,7 +10,7 @@ class ProfileForm extends Component {
             <div className="row">
                 <div className="col-xs-6">
                     <label htmlFor="legalName">Nombre</label>
-                    <Field name="legalName" component="input" type="text" placeholder={user.legalName} defaultValue={user.legalName} />
+                    <Field name="legalName" component="input" type="text" placeholder={user.legalName} />
                 </div>
                 <div className="col-xs-6">
                     <label htmlFor="email">E-mail</label>
@@ -24,7 +24,7 @@ class ProfileForm extends Component {
                 </div>
             </div>
             <div className="row">
-                <button type="submit" className="primary col-xs-offset-9">Login</button>
+                <button type="submit" className="primary col-xs-offset-9">Actualizar</button>
             </div>
             {error && <strong>{error}</strong>}
         </form>

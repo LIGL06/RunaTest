@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 // Components
 import ProfileForm from '../components/ProfileForm';
 // Actions
+import { putProfile } from '../actions/session';
 
 
 class Login extends Component {
@@ -19,7 +20,9 @@ class Login extends Component {
   }
 
   handleSubmit = (values) => {
-    // Update Profile
+    if(values.legalName || values.email || values.legalRfc){
+      // Update Profile
+    }
   };
 
   render() {
@@ -37,7 +40,7 @@ class Login extends Component {
                 <Link to={"/employees/" + user.id}>Mi reporte</Link>
                 )}
             </div>
-                <ProfileForm onSubmit={this.handleSubmit} user={user} initialValues={{legalName: user.legalName}}/>
+                <ProfileForm onSubmit={this.handleSubmit} user={user} initialValues={user}/>
             </div>
         </div>
       </>

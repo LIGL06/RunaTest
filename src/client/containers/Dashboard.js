@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect, Switch } from 'react-router';
 // Containers
 import NewEmployee from './NewEmployee';
+import NewRecord from './NewRecord';
 import Employees from './Employees';
 import EmployeePreview from './EmployeePreview';
 import EmployeeEdit from './EmployeeEdit';
@@ -19,10 +20,12 @@ class Dashboard extends React.Component {
     this.state = {}
   }
 
-  componentDidMount(){}
+  componentDidMount(){
+    //
+  }
  
-  render() {    
-    const { session } = this.props || this.state;    
+  render() {
+    const { session } = this.props;    
     if (!session) return <Redirect to="/login"/>;
     const { user } = session;
     return (
@@ -33,6 +36,7 @@ class Dashboard extends React.Component {
           <div className="container">
             <Switch>
               <Route path="/new" component={NewEmployee}/>
+              <Route path="/records/new/:id" component={NewRecord}/>
               <Route path="/employees/:id" component={EmployeePreview}/>
               <Route path="/employees" component={Employees}/>
               <Route path="/employee/details/:id" component={EmployeeEdit}/>

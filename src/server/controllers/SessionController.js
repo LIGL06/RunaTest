@@ -31,27 +31,19 @@ SessionController.post('/register', async (ctx) => {
           password: hash,
           email: payload.email,
           created_at: moment.tz('America/Monterrey')
-            .format('YYYY-MM-DD HH:mm:ss')
+            .format('YYYY-MM-DD HH:mm:ss'),
+          admin: false
         };
-        const session = {
-          user: {...userFields}
-        };
-        // const [newId] = await User.create(userFields);
-        jwt.sign(session, process.env.JWT_SIGN, {
-          expiresIn: '2h'
-        }, (err, token) => {
-          if (err) reject(err);
-          logger.info(`Session created: ${session.user.legalName}, ${session.user.legalRfc}`);
-          ctx.body = {
-            session,
-            token
-          };
-          resolve();
-        });
+        const newId = await User.create(userFields);
         logger.info('New user registration', {
           ...userFields,
           // newId
         });
+        ctx.body = {
+          ...userFields,
+          newId
+        };
+        resolve();
       });
     });
   } else {

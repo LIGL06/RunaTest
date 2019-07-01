@@ -12,7 +12,7 @@ let store = confStore();
 
 if (localStorage.session) {
   const session = JSON.parse(localStorage.session);
-  store = confStore({session});
+  store = confStore({ session });
 }
 
 if (localStorage.token) {

@@ -106,9 +106,14 @@ class EmployeePreview extends Component {
                   Último Check-in pendiente
                 </span>
                 <p>{ lastCheckIn ? moment(lastCheckIn.created_at).format('LL') : 'No hay'}</p>
-                <br />
                 <div className="row">
-                  {/* Algo Extra */}
+                  {
+                    session.admin ? (
+                      <Link to={ "/records/new/" + employee.id }>
+                        <button className="primary">Nuevo Check-In +</button>
+                      </Link>
+                    ) : false
+                  }
                 </div>
               </div>
             </div>
