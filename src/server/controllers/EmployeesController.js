@@ -1,7 +1,9 @@
 import Router from 'koa-router';
 import moment from 'moment-timezone';
 import User from '../models/User';
+import Record from '../models/Record';
 import requireAuth from '../middleware/requireAuth';
+import { createContext } from 'vm';
 require('dotenv')
   .config();
 const EmployeesController = Router({
@@ -22,4 +24,12 @@ EmployeesController.get('/get/:id', async (ctx) => {
   };
 });
 
+EmployeesController.get('/records/:id', async (ctx) => {
+  ctx.body = await Record.get({user: ctx.params.id});
+});
+
+EmployeesController.get('/records/check-in/:id', async (ctx) => {
+  const [lastCheckIn] = await Record.getLastCheckIn({user: ctx.params.id, updated_at: null});
+  ctx.body = lastCheckIn;
+});
 export default EmployeesController;

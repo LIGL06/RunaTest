@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import employees from '../actions/employees';
 
 const Sidebar = ({user}) => (
   <div className="sidebar hide-on-med-and-down">
@@ -9,16 +10,31 @@ const Sidebar = ({user}) => (
     </Link>
     <nav>
       <li>
-        <NavLink to="/new">
+        {
+          user.admin ? (
+            <NavLink to="/new">
           <i className="fas fa-user-plus" />
           &nbsp;Nuevo Empleado
         </NavLink>
+          ) : (
+            <NavLink to={"/employees/" + user.id}>
+            <i className="fas fa-user-clock" />
+            &nbsp;Mi Reporte
+            </NavLink>
+          )
+        }
       </li>
       <li>
-        <NavLink to="/employees">
-        <i className="fas fa-users" />
-        &nbsp;Mis Empleados
-        </NavLink>
+        {
+          user.admin ? (
+            <NavLink to="/employees">
+                <i className="fas fa-users" />
+                &nbsp;Mis Empleados
+            </NavLink>
+          ) : (
+          false
+          )
+        }
       </li>
       <li className="scrollable-nav">  
       </li>
