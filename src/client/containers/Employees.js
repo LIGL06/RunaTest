@@ -56,10 +56,9 @@ class Employees extends React.Component {
                     <tbody>
                     <tr className="row">
                       <th style={{ width: '1%' }}/>
-                      <th style={{ width: '27%' }}>Nombre</th>
-                      <th style={{ width: '22%' }}>RFC</th>
-                      <th style={{ width: '20%' }}>Última entrada</th>
-                      <th style={{ width: '15%' }}>Última salida</th>
+                      <th style={{ width: '45%' }}>Nombre</th>
+                      <th style={{ width: '20%' }}>RFC</th>
+                      <th style={{ width: '15%' }}>E-mail</th>
                     </tr>
                     </tbody>
                   </table>
