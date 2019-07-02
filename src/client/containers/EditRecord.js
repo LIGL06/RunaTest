@@ -3,19 +3,32 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment-timezone';
+import PropTypes from 'prop-types';
 // Components
-import CheckInForm from '../components/CheckInForm';
+import CheckOutForm from '../components/CheckOutForm';
 // Actions
-import { postRecord } from '../actions/records';
+import { putRecord, getRecord } from '../actions/records';
 
-class NewRecord extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        message: '',
-        momentStyle: false,
-        loading: true
+class EditRecord extends Component {
+    static propTypes = {
+        getRecord: PropTypes.func.isRequired
     }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            message: '',
+            momentStyle: false,
+            loading: true
+        }
+    }
+
+  componentDidMount(){
+    const {match} = this.props;
+    this.props.getRecord(match.params.id).then(()=>{
+        this.setState({loading: false});
+        console.log(this.props);
+    });
   }
 
   changeView = () => {
@@ -24,41 +37,36 @@ class NewRecord extends Component {
   }
 
   handleSubmit = (values) => {
-    const {dispatch, match} = this.props;
+    const {match} = this.props;
     const day = moment(values.day).format('YYYY-MM-DD');
     const formattedDay = day.split('T')[0];
-    const created_at = moment(`${values.created_at} am`, "HH:mm a").format();
-    const fromattedCreated= created_at.split('T')[1];
+    const updated_at = moment(`${values.updated_at} am`, "HH:mm a").format();
+    const fromattedCreated= updated_at.split('T')[1];
     const formattedStamp = `${formattedDay}T${fromattedCreated}`;
-    dispatch(
-      postRecord({
-        user: match.params.id,
+    this.props.putRecord({
         day: formattedDay,
-        created_at: formattedStamp
-      }, match.params.id)
-    );
+        updated_at: formattedStamp
+      }, match.params.id);
   };
 
   handleMomentSubmit = (event) => {
     event.preventDefault();
-    const {dispatch, match} = this.props;
+    const {match} = this.props;
     const date = moment.tz('America/Monterrey').format('YYYY-MM-DD HH:mm:ss');
-    dispatch(
-      postRecord({
-        user: match.params.id,
+    this.props.putRecord({
         day: date,
-        created_at: date
-      }, match.params.id)
-    );
+        updated_at: date
+      }, match.params.id);
   };
 
   render() {
+    const { record } = this.props
     const { momentStyle } = this.state;
     return (
       <div className="row">
       <div className="col-md-12">
         <div className="titlebar">
-          <h1>Nuevo Check-In</h1>
+          <h1>Check-Out - {moment(record.created_at).format('LL')}</h1>
           <Link to="/employees">Mis empleados <i className="fas fa-users" /></Link>
         </div>
         {
@@ -71,11 +79,11 @@ class NewRecord extends Component {
                   </div>
                 </div>
                 <div className="row">
-                  <button type="submit" className="primary col-md-offset-9">Crear Check-In</button>
+                  <button type="submit" className="primary col-md-offset-9">Crear Check-Out</button>
                 </div>
             </form>
             ) : (
-                <CheckInForm onSubmit={this.handleSubmit} />
+                <CheckOutForm onSubmit={this.handleSubmit} />
             )
         }
         <div className="row">
@@ -91,7 +99,8 @@ class NewRecord extends Component {
 
 const mapStateToProps = (state) => ({
   session: state.session,
-  employee: state.employees.employee
+  employee: state.employees.employee,
+  record: state.records.record
 });
 
-export default connect(mapStateToProps)(NewRecord);
+export default connect(mapStateToProps, {getRecord, putRecord})(EditRecord);

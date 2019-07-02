@@ -14,6 +14,16 @@ const Record = {
       .orderBy('records.created_at', 'DESC');
   },
 
+  /**
+   * Get all Record Data
+   * @param condition
+   * @returns {*}
+   */
+  getOne(condition) {
+    return Database.client('records')
+      .where(condition);
+  },
+
   getLastCheckIn(condition) {
     return Database.client('records')
       .where(condition)
@@ -21,13 +31,24 @@ const Record = {
   },
 
   /**
-   * Create a new records
+   * Create a new record
    * @param  {Object} parameters Record parameters
    * @return {Promise}
    */
   create(parameters) {
     return Database.client('records')
       .insert(parameters);
+  },
+
+   /**
+   * Update a record
+   * @param  {Object} parameters Record parameters
+   * @return {Promise}
+   */
+  update(condition, parameters) {
+    return Database.client('records')
+      .where(condition)
+      .update(parameters);
   },
 
 };

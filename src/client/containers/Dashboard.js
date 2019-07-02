@@ -5,6 +5,7 @@ import { Route, Redirect, Switch } from 'react-router';
 // Containers
 import NewEmployee from './NewEmployee';
 import NewRecord from './NewRecord';
+import EditRecord from './EditRecord';
 import Employees from './Employees';
 import EmployeePreview from './EmployeePreview';
 import EmployeeEdit from './EmployeeEdit';
@@ -37,6 +38,7 @@ class Dashboard extends React.Component {
             <Switch>
               <Route path="/new" component={NewEmployee}/>
               <Route path="/records/new/:id" component={NewRecord}/>
+              <Route path="/records/edit/:id" component={EditRecord}/>
               <Route path="/employees/:id" component={EmployeePreview}/>
               <Route path="/employees" component={Employees}/>
               <Route path="/employee/details/:id" component={EmployeeEdit}/>

@@ -24,6 +24,11 @@ EmployeesController.get('/get/:id', async (ctx) => {
   };
 });
 
+EmployeesController.get('/record/:id', async (ctx) => {
+  const [record] = await Record.getOne({id: ctx.params.id});
+  ctx.body = record;
+});
+
 EmployeesController.get('/records/:id', async (ctx) => {
   ctx.body = await Record.get({user: ctx.params.id});
 });
@@ -38,5 +43,13 @@ EmployeesController.post('/records/:id', async (ctx) => {
     ...ctx.request.body
   }
   ctx.body = await Record.create(payload);
+});
+
+EmployeesController.put('/records/:id', async (ctx) => {
+  const payload = {
+    ...ctx.request.body
+  }
+  // ctx.body = payload;
+  ctx.body = await Record.update({id: ctx.params.id }, payload);
 });
 export default EmployeesController;

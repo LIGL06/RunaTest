@@ -147,7 +147,13 @@ class EmployeePreview extends Component {
                         {this.validateCheckIn(localRecord.created_at, localRecord.day)}
                       </div>
                       <div className="col-sm-4">
-                        { localRecord.updated_at ? this.validateCheckOut(localRecord.updated_at, localRecord.day) : (<p>No registrada</p>) }
+                        { localRecord.updated_at ? this.validateCheckOut(localRecord.updated_at, localRecord.day) : (
+                            session.admin ? (
+                              <Link to={ "/records/edit/" + localRecord.id }>
+                                <button className="neutral" style={{fontSize:"10px"}}>Check-out</button>
+                              </Link>
+                            ) : (<p>No registrada</p>)
+                        ) }
                       </div>
                     </div>
                   ))) : (<p className="align-center">No hay Check-ins</p>

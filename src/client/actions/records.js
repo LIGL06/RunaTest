@@ -4,10 +4,14 @@ import { push } from 'connected-react-router';
 // Types
 export const RECORDS_START = 'RECORDS_START';
 export const RECORDS_COMPLETED = 'RECORDS_COMPLETED';
+export const RECORD_START = 'RECORD_START';
+export const RECORD_COMPLETED = 'RECORD_COMPLETED';
 export const LAST_CHECKIN = 'LAST_CHECKIN';
 export const LAST_CHECKIN_COMPLETED = 'LAST_CHECKIN_COMPLETED';
 export const POST_RECORD = 'POST_RECORD';
 export const POST_RECORD_COMPLETED = 'POST_RECORD_COMPLETED';
+export const PUT_RECORD = 'PUT_RECORD';
+export const PUT_RECORD_COMPLETED = 'PUT_RECORD_COMPLETED';
 // Actions
 export const fetchRecords = () => {
   return {
@@ -18,6 +22,18 @@ export const fetchRecordsCompleted = records => {
   return {
   type: RECORDS_COMPLETED,
   records
+  }
+};
+
+export const fetchRecord = () => {
+  return {
+  type: RECORD_START
+}};
+
+export const fetchRecordCompleted = record => {
+  return {
+  type: RECORD_COMPLETED,
+  record
   }
 };
 
@@ -45,12 +61,33 @@ export const createRecordCompleted = newRecord => {
   newRecord
   }
 };
+
+export const updateRecord = () => {
+  return {
+  type: POST_RECORD
+}};
+
+
+export const updateRecordCompleted = updatedRecord => {
+  return {
+  type: POST_RECORD_COMPLETED,
+  updatedRecord
+  }
+};
 // Duck Login
 export const getRecords = userId => async (dispatch) => {
   dispatch(fetchRecords());
     await axios.get(`/api/employees/records/${userId}`).then(res => {
         const records = res.data;
         dispatch(fetchRecordsCompleted(records));
+    }).catch(error => console.error(error));
+}
+
+export const getRecord = recordId => async (dispatch) => {
+  dispatch(fetchRecord());
+    await axios.get(`/api/employees/record/${recordId}`).then(res => {
+        const record = res.data;
+        dispatch(fetchRecordCompleted(record));
     }).catch(error => console.error(error));
 }
 
@@ -70,8 +107,17 @@ export const postRecord = (record, userId) => async (dispatch) => {
         dispatch(push('/employees/'+ userId));
     }).catch(error => console.error(error));
 }
+
+export const putRecord = (record, recordId) => async (dispatch) => {
+  dispatch(updateRecord());
+    await axios.put(`/api/employees/records/${recordId}`, record).then(res => {
+        const updatedRecord = res.data;
+        dispatch(updateRecordCompleted(updatedRecord));
+        dispatch(push('/employees/'));
+    }).catch(error => console.error(error));
+}
 // Reducer
-export default function(state = {loading: true, records: [], lastCheckIn: {}, newRecord: {}}, action){
+export default function(state = {loading: true, records: [], lastCheckIn: {}, newRecord: {}, record:{}}, action){
   switch (action.type) {
     case RECORDS_COMPLETED:
       return {
@@ -80,6 +126,16 @@ export default function(state = {loading: true, records: [], lastCheckIn: {}, ne
         loading: false,
       };
     case RECORDS_START:
+      return {
+        ...state,
+      };
+    case RECORD_COMPLETED:
+      return {
+        ...state,
+        record: action.record,
+        loading: false,
+      };
+    case RECORD_START:
       return {
         ...state,
       };
@@ -100,6 +156,16 @@ export default function(state = {loading: true, records: [], lastCheckIn: {}, ne
         loading: false,
       };
     case POST_RECORD:
+      return {
+        ...state,
+      }; 
+    case PUT_RECORD_COMPLETED:
+    return {
+      ...state,
+      newRecord: action.newRecord,
+      loading: false,
+    };
+    case PUT_RECORD:
       return {
         ...state,
       }; 
