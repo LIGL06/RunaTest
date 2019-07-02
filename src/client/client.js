@@ -22,9 +22,9 @@ if (localStorage.token) {
 
 const root = document.getElementById('root');
 render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Application />
+  <Provider store={ store }>
+    <ConnectedRouter history={ history }>
+      <Application/>
     </ConnectedRouter>
   </Provider>
   , root);

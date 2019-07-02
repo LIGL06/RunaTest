@@ -1,8 +1,8 @@
+// Deps
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { Switch, Route } from 'react-router';
 import { SessionActions } from '../actions/session';
-
 // Containers
 import Dashboard from './Dashboard';
 import Login from './Login';

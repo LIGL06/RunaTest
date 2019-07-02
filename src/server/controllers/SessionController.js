@@ -35,7 +35,7 @@ SessionController.post('/register', async (ctx) => {
           admin: false
         };
         try {
-          await User.create(userFields); 
+          await User.create(userFields);
           logger.info('New user registration', {
             ...userFields
           });
@@ -71,7 +71,7 @@ SessionController.post('/login', async (ctx) => {
   const [user] = await User.get({
     email: payload.email
   });
-  if(!user){
+  if (!user) {
     ctx.status = 401;
     ctx.body = {
       error: 'Invalid credentials'
@@ -95,7 +95,7 @@ SessionController.post('/login', async (ctx) => {
           expiresIn: '2h'
         }, (err, token) => {
           if (err) reject(err);
-          logger.info(`Session created: ${session.user.legalName}, ${session.user.legalRfc}`);
+          logger.info(`Session created: ${ session.user.legalName }, ${ session.user.legalRfc }`);
           ctx.body = {
             session,
             token

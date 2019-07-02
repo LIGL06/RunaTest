@@ -13,35 +13,39 @@ export const fetchEmployees = () => ( {
   type: GET_EMPLOYEES
 } );
 
-export const fetchEmployee = (id) => { 
+export const fetchEmployee = (id) => {
   return {
-  type: GET_EMPLOYEE,
-  id
-} };
+    type: GET_EMPLOYEE,
+    id
+  }
+};
 
-export const updateEmployee = () => { 
+export const updateEmployee = () => {
   return {
-  type: PUT_EMPLOYEE
-} };
+    type: PUT_EMPLOYEE
+  }
+};
 
-export const fetchEmployeeFulfilled = employee => { 
+export const fetchEmployeeFulfilled = employee => {
   return {
-  type: GET_EMPLOYEE_FULFILLED,
-  employee
-} };
+    type: GET_EMPLOYEE_FULFILLED,
+    employee
+  }
+};
 
-export const updateEmployeeFulfilled = employee => { 
+export const updateEmployeeFulfilled = employee => {
   return {
-  type: PUT_EMPLOYEE__FULFILLED,
-  employee
-} };
+    type: PUT_EMPLOYEE__FULFILLED,
+    employee
+  }
+};
 
 export const fetchEmployeesFulfilled = employees => ( {
   type: GET_EMPLOYEES_FULFILLED,
   employees
 } );
 
-export const getEmployees = () => async (dispatch) =>{
+export const getEmployees = () => async (dispatch) => {
   dispatch(fetchEmployees());
   await axios.get('/api/employees/list').then(res => {
     const employees = res.data;
@@ -49,9 +53,9 @@ export const getEmployees = () => async (dispatch) =>{
   }).catch(error => console.error(error));
 };
 
-export const getEmployee = (id) => async (dispatch) =>{
+export const getEmployee = (id) => async (dispatch) => {
   dispatch(fetchEmployee(id));
-  await axios.get(`/api/employees/get/${id}`).then(res => {
+  await axios.get(`/api/employees/get/${ id }`).then(res => {
     const employee = res.data;
     dispatch(fetchEmployeeFulfilled(employee));
   }).catch(error => console.error(error));
@@ -60,13 +64,13 @@ export const getEmployee = (id) => async (dispatch) =>{
 // Duck Update User
 export const putUpdate = (action, userId) => async (dispatch) => {
   dispatch(updateEmployee());
-    return axios.put(`/api/employees/update/${userId}`, action).then(res => {
-      dispatch(updateEmployeeFulfilled(res.data));
-      dispatch(push('/employees'));
-    }).catch(error => console.error(error));
-}
+  return axios.put(`/api/employees/update/${ userId }`, action).then(res => {
+    dispatch(updateEmployeeFulfilled(res.data));
+    dispatch(push('/employees'));
+  }).catch(error => console.error(error));
+};
 
-export default function(state = {loading: true, employees:[], employee: {}}, action){
+export default function (state = { loading: true, employees: [], employee: {} }, action) {
   switch (action.type) {
     case GET_EMPLOYEES_FULFILLED:
       return {
@@ -82,7 +86,7 @@ export default function(state = {loading: true, employees:[], employee: {}}, act
     case GET_EMPLOYEE_FULFILLED:
       return {
         ...state,
-        employee: {...action.employee},
+        employee: { ...action.employee },
         loading: false
       };
     case GET_EMPLOYEE:
@@ -93,7 +97,7 @@ export default function(state = {loading: true, employees:[], employee: {}}, act
     case PUT_EMPLOYEE__FULFILLED:
       return {
         ...state,
-        employee: {...action.employee},
+        employee: { ...action.employee },
         loading: false
       };
     case PUT_EMPLOYEE:

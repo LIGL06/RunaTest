@@ -15,109 +15,114 @@ export const PUT_RECORD_COMPLETED = 'PUT_RECORD_COMPLETED';
 // Actions
 export const fetchRecords = () => {
   return {
-  type: RECORDS_START
-}};
+    type: RECORDS_START
+  }
+};
 
 export const fetchRecordsCompleted = records => {
   return {
-  type: RECORDS_COMPLETED,
-  records
+    type: RECORDS_COMPLETED,
+    records
   }
 };
 
 export const fetchRecord = () => {
   return {
-  type: RECORD_START
-}};
+    type: RECORD_START
+  }
+};
 
 export const fetchRecordCompleted = record => {
   return {
-  type: RECORD_COMPLETED,
-  record
+    type: RECORD_COMPLETED,
+    record
   }
 };
 
 export const fetchLastCheckIn = () => {
   return {
-  type: LAST_CHECKIN
-}};
+    type: LAST_CHECKIN
+  }
+};
 
 export const fetchLastCheckInCompleted = lastCheckIn => {
   return {
-  type: LAST_CHECKIN_COMPLETED,
-  lastCheckIn
+    type: LAST_CHECKIN_COMPLETED,
+    lastCheckIn
   }
 };
 
 export const createRecord = () => {
   return {
-  type: POST_RECORD
-}};
+    type: POST_RECORD
+  }
+};
 
 
 export const createRecordCompleted = newRecord => {
   return {
-  type: POST_RECORD_COMPLETED,
-  newRecord
+    type: POST_RECORD_COMPLETED,
+    newRecord
   }
 };
 
 export const updateRecord = () => {
   return {
-  type: POST_RECORD
-}};
+    type: POST_RECORD
+  }
+};
 
 
 export const updateRecordCompleted = updatedRecord => {
   return {
-  type: POST_RECORD_COMPLETED,
-  updatedRecord
+    type: POST_RECORD_COMPLETED,
+    updatedRecord
   }
 };
 // Duck Login
 export const getRecords = userId => async (dispatch) => {
   dispatch(fetchRecords());
-    await axios.get(`/api/employees/records/${userId}`).then(res => {
-        const records = res.data;
-        dispatch(fetchRecordsCompleted(records));
-    }).catch(error => console.error(error));
-}
+  await axios.get(`/api/employees/records/${ userId }`).then(res => {
+    const records = res.data;
+    dispatch(fetchRecordsCompleted(records));
+  }).catch(error => console.error(error));
+};
 
 export const getRecord = recordId => async (dispatch) => {
   dispatch(fetchRecord());
-    await axios.get(`/api/employees/record/${recordId}`).then(res => {
-        const record = res.data;
-        dispatch(fetchRecordCompleted(record));
-    }).catch(error => console.error(error));
-}
+  await axios.get(`/api/employees/record/${ recordId }`).then(res => {
+    const record = res.data;
+    dispatch(fetchRecordCompleted(record));
+  }).catch(error => console.error(error));
+};
 
 export const getLastCheckIn = userId => async (dispatch) => {
   dispatch(fetchLastCheckIn());
-    await axios.get(`/api/employees/records/check-in/${userId}`).then(res => {
-        const lastCheckIn = res.data;
-        dispatch(fetchLastCheckInCompleted(lastCheckIn));
-    }).catch(error => console.error(error));
-}
+  await axios.get(`/api/employees/records/check-in/${ userId }`).then(res => {
+    const lastCheckIn = res.data;
+    dispatch(fetchLastCheckInCompleted(lastCheckIn));
+  }).catch(error => console.error(error));
+};
 
 export const postRecord = (record, userId) => async (dispatch) => {
   dispatch(createRecord());
-    await axios.post(`/api/employees/records/${userId}`, record).then(res => {
-        const newRecord = res.data;
-        dispatch(createRecordCompleted(newRecord));
-        dispatch(push('/employees/'+ userId));
-    }).catch(error => console.error(error));
-}
+  await axios.post(`/api/employees/records/${ userId }`, record).then(res => {
+    const newRecord = res.data;
+    dispatch(createRecordCompleted(newRecord));
+    dispatch(push('/employees/' + userId));
+  }).catch(error => console.error(error));
+};
 
 export const putRecord = (record, recordId) => async (dispatch) => {
   dispatch(updateRecord());
-    await axios.put(`/api/employees/records/${recordId}`, record).then(res => {
-        const updatedRecord = res.data;
-        dispatch(updateRecordCompleted(updatedRecord));
-        dispatch(push('/employees/'));
-    }).catch(error => console.error(error));
-}
+  await axios.put(`/api/employees/records/${ recordId }`, record).then(res => {
+    const updatedRecord = res.data;
+    dispatch(updateRecordCompleted(updatedRecord));
+    dispatch(push('/employees/'));
+  }).catch(error => console.error(error));
+};
 // Reducer
-export default function(state = {loading: true, records: [], lastCheckIn: {}, newRecord: {}, record:{}}, action){
+export default function (state = { loading: true, records: [], lastCheckIn: {}, newRecord: {}, record: {} }, action) {
   switch (action.type) {
     case RECORDS_COMPLETED:
       return {
@@ -158,17 +163,17 @@ export default function(state = {loading: true, records: [], lastCheckIn: {}, ne
     case POST_RECORD:
       return {
         ...state,
-      }; 
+      };
     case PUT_RECORD_COMPLETED:
-    return {
-      ...state,
-      newRecord: action.newRecord,
-      loading: false,
-    };
+      return {
+        ...state,
+        newRecord: action.newRecord,
+        loading: false,
+      };
     case PUT_RECORD:
       return {
         ...state,
-      }; 
+      };
     default:
       return state;
   }

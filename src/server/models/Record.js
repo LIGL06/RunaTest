@@ -24,6 +24,11 @@ const Record = {
       .where(condition);
   },
 
+  /**
+   * Get Last Pending CheckIn
+   * @param condition
+   * @returns {Knex.QueryBuilder<TRecord, DeferredKeySelection<TRecord2, never>[]>}
+   */
   getLastCheckIn(condition) {
     return Database.client('records')
       .where(condition)
@@ -40,8 +45,9 @@ const Record = {
       .insert(parameters);
   },
 
-   /**
+  /**
    * Update a record
+   * @param condition
    * @param  {Object} parameters Record parameters
    * @return {Promise}
    */

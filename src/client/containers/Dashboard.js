@@ -22,23 +22,23 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { session } = this.props;    
+    const { session } = this.props;
     if (!session) return <Redirect to="/login"/>;
     const { user } = session;
     return (
       <>
-        <Sidebar user={ user } />
+        <Sidebar user={ user }/>
         <Header user={ user }/>
         <div className="dashboard">
           <div className="container">
             <Switch>
-              <Route path="/new" component={NewEmployee}/>
-              <Route path="/records/new/:id" component={NewRecord}/>
-              <Route path="/records/edit/:id" component={EditRecord}/>
-              <Route path="/employees/:id" component={EmployeePreview}/>
-              <Route path="/employees" component={Employees}/>
-              <Route path="/employee/details/:id" component={EmployeeEdit}/>
-              <Route path="/profile" component={Profile}/>
+              <Route path="/new" component={ NewEmployee }/>
+              <Route path="/records/new/:id" component={ NewRecord }/>
+              <Route path="/records/edit/:id" component={ EditRecord }/>
+              <Route path="/employees/:id" component={ EmployeePreview }/>
+              <Route path="/employees" component={ Employees }/>
+              <Route path="/employee/details/:id" component={ EmployeeEdit }/>
+              <Route path="/profile" component={ Profile }/>
               <Route path="/" component={ () => <Home user={ user }/> }/>
             </Switch>
           </div>
@@ -48,8 +48,8 @@ class Dashboard extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ( {
   ...state.session
-});
+} );
 
 export default connect(mapStateToProps)(Dashboard);

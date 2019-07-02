@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import employees from '../actions/employees';
 
 const Sidebar = ({user}) => (
   <div className="sidebar hide-on-med-and-down">

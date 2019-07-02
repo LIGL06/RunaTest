@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment-timezone';
 import { Link } from 'react-router-dom';
 
 const EmployeeRow = ({ employee }) => (
@@ -7,15 +6,15 @@ const EmployeeRow = ({ employee }) => (
     <td className="align-center">
     </td>
     <td className="legalName">
-      <Link to={"/employees/"+ employee.id}>
-        <span>{employee.legalName}</span>
+      <Link to={ "/employees/" + employee.id }>
+        <span>{ employee.legalName }</span>
       </Link>
     </td>
     <td className="align-left">
-    {employee.legalRfc}
+      { employee.legalRfc }
     </td>
     <td className="align-left">
-    {employee.email}
+      { employee.email }
     </td>
   </tr>
 );

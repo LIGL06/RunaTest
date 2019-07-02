@@ -10,7 +10,7 @@ export const middleware = [
   routerMiddleware(history)
 ];
 
-export default function(preloadedState) {
+export default function (preloadedState) {
   const store = createStore(
     rootReducer(history),
     preloadedState,

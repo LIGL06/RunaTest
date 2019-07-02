@@ -26,9 +26,7 @@ const config = {
       multipleStatements: true,
       timezone: '-06:00'
     },
-    pool: {
-       
-    },
+    pool: {},
     acquireConnectionTimeout: 10000,
     migrations: {
       tableName: 'knex_migrations'

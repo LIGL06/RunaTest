@@ -4,93 +4,85 @@ import { push } from 'connected-react-router';
 // Types
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_COMPLETED = 'LOGIN_COMPLETED';
-export const SIGNUP_START = 'SIGNUP_START';
-export const SIGNUP_COMPLETED = 'SIGNUP_COMPLETED';
+export const SIGN_UP_START = 'SIGN_UP_START';
+export const SIGN_UP_COMPLETED = 'SIGN_UP_COMPLETED';
 // Actions
 export const login = () => {
   return {
-  type: LOGIN_START
-}};
+    type: LOGIN_START
+  }
+};
 
 export const loginCompleted = session => {
   return {
-  type: LOGIN_COMPLETED,
-  session
+    type: LOGIN_COMPLETED,
+    session
   }
 };
 
-export const loginRejected = message => {
-  return { type: LOGIN_REJECTED,
-  message
-} };
-
-export const signup = () => {
+export const signUp = () => {
   return {
-  type: SIGNUP_START
-}};
-
-export const signupCompleted = newEmployee => {
-  return {
-  type: SIGNUP_COMPLETED,
-  newEmployee
+    type: SIGN_UP_START
   }
 };
 
-export const signupRejected = message => {
-  return { type: SIGNUP_REJECTED,
-  message
-} };
+export const signUpCompleted = newEmployee => {
+  return {
+    type: SIGN_UP_COMPLETED,
+    newEmployee
+  }
+};
 // Duck Login
 export const postLogin = action => async (dispatch) => {
   dispatch(login());
-    await axios.post('/api/session/login', action).then(res => {
-      if(res.data.token && res.data.session){
-        const {token, session} = res.data;
-        dispatch(loginCompleted(session, token));
-        localStorage.token = token;
-        localStorage.session = JSON.stringify(session);
-        axios.defaults.headers.common['X-Jwt-Token'] = token;
-        dispatch(push('/'));
-      }
-    }).catch(error => console.error(error));
-}
+  await axios.post('/api/session/login', action).then(res => {
+    if (res.data.token && res.data.session) {
+      const { token, session } = res.data;
+      dispatch(loginCompleted(session, token));
+      localStorage.token = token;
+      localStorage.session = JSON.stringify(session);
+      axios.defaults.headers.common['X-Jwt-Token'] = token;
+      dispatch(push('/'));
+    }
+  }).catch(error => console.error(error));
+};
 // Duck SignUp
 export const postSignUp = action => async (dispatch) => {
-  dispatch(signup());
-    return axios.post('/api/session/register', action).then(res => {
-      dispatch(signupCompleted(res.data));
-      dispatch(push('/employees'));
-    }).catch(error => console.error(error));
-}
+  dispatch(signUp());
+  return axios.post('/api/session/register', action).then(res => {
+    dispatch(signUpCompleted(res.data));
+    dispatch(push('/employees'));
+  }).catch(error => console.error(error));
+};
 // Duck Logout
 export const SessionActions = {
-  logout(){
-  delete localStorage.session;
-  delete localStorage.token;
-  window.location = '/login';
-  return null;
+  logout() {
+    delete localStorage.session;
+    delete localStorage.token;
+    window.location = '/login';
+    return null;
   }
-}
+};
 // Reducer
-export default function(state = {loading: true, session: {}, newEmployee: {}, message: null}, action){
+export default function (state = { loading: true, session: {}, newEmployee: {}, message: null }, action) {
   switch (action.type) {
     case LOGIN_COMPLETED:
       return {
         ...state,
-        session: action.session,        
+        session: action.session,
         loading: false,
       };
     case LOGIN_START:
       return {
         ...state,
       };
-    case SIGNUP_COMPLETED:
+    case SIGN_UP_COMPLETED:
       return {
         ...state,
         newEmployee: action.newEmployee,
         loading: false,
       };
-    case SIGNUP_START:
+    case SIGN_UP_START:
       return {
         ...state,
       };

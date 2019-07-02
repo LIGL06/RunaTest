@@ -1,5 +1,5 @@
 // Dependencies
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // Components
@@ -13,13 +13,8 @@ class Login extends Component {
     logginIn: true
   };
 
-  changeView = () => {
-    const { logginIn } = this.state;
-    this.setState({logginIn: !logginIn});
-  }
-
   handleSignup = (values) => {
-    const {dispatch} = this.props;
+    const { dispatch } = this.props;
     dispatch(
       postSignUp(values)
     );
@@ -28,20 +23,20 @@ class Login extends Component {
   render() {
     return (
       <div className="row">
-      <div className="col-md-12">
-        <div className="titlebar">
-          <h1>Nuevo Empleado</h1>
-          <Link to="/employees">Mis empleados <i className="fas fa-users" /></Link>
+        <div className="col-md-12">
+          <div className="titlebar">
+            <h1>Nuevo Empleado</h1>
+            <Link to="/employees">Mis empleados <i className="fas fa-users"/></Link>
+          </div>
+          <SignUpForm onSubmit={ this.handleSignup }/>
         </div>
-        <SignUpForm onSubmit={this.handleSignup}/>
       </div>
-    </div>
     );
   }
-};
+}
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ( {
   session: state.session
-});
+} );
 
 export default connect(mapStateToProps)(Login);

@@ -21,8 +21,9 @@ const User = {
       .insert(parameters);
   },
 
-   /**
+  /**
    * Update an User
+   * @param condition
    * @param  {Object} parameters User parameters
    * @return {Promise}
    */
