@@ -49,7 +49,13 @@ EmployeesController.put('/records/:id', async (ctx) => {
   const payload = {
     ...ctx.request.body
   }
-  // ctx.body = payload;
   ctx.body = await Record.update({id: ctx.params.id }, payload);
+});
+
+EmployeesController.put('/update/:id', async (ctx) => {
+  const payload = {
+    ...ctx.request.body
+  }  
+  ctx.body = await User.update({id: ctx.params.id }, payload);
 });
 export default EmployeesController;

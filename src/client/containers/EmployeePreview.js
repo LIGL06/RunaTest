@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 // Components
-
+import ProfileForm from '../components/ProfileForm';
 // Actions
-import { getEmployee } from '../actions/employees';
+import { getEmployee, putUpdate } from '../actions/employees';
 import { getRecords, getLastCheckIn } from '../actions/records';
 
 
@@ -15,13 +15,17 @@ class EmployeePreview extends Component {
     static propTypes = {
         getEmployee: PropTypes.func.isRequired,
         getRecords: PropTypes.func.isRequired,
-        getLastCheckIn: PropTypes.func.isRequired
+        getLastCheckIn: PropTypes.func.isRequired,
+        putUpdate: PropTypes.func.isRequired
     }
 
-  state = {
-    message: '',
-    loading: true
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+        message: '',
+        loading: true
+    }
+  }
 
   componentDidMount(){
     const { match } = this.props;
@@ -31,6 +35,15 @@ class EmployeePreview extends Component {
       this.setState({loading: false});
     });
   }
+
+  handleSubmit = (values) => {
+    const { session, match} = this.props
+    if(!session.admin){
+      this.props.putUpdate({email: values.email}, match.params.id);
+    } else {
+      this.props.putUpdate({email: values.email , legalName: values.legalName, legalRfc: values.legalRfc}, match.params.id);
+    }
+  };
 
   validateCheckIn(checkInDate, day){
     const time = moment(checkInDate),
@@ -45,39 +58,17 @@ class EmployeePreview extends Component {
       afterTime = moment(day).add(16, 'hours').add(5, 'minutes');
     return <p className="mbm-10" style={{ color: time.isBetween(beforeTime, afterTime, 'minutes') ? '#869197' : '#f5a623' }}>Salida: {moment(checkOutDate).format("LTS")}</p>;
   }
-
-  hasPendings(lastCheckIn, records) {
-    const [lastRecord] = records;
-    return moment(lastCheckIn.created_at).format('LL') == moment(lastRecord.created_at).format('LL');    
-  }
+  
+  // hasPendings(lastCheckIn, records) {
+  //   const [lastRecord] = records;
+  //   return moment(lastCheckIn.created_at).format('LL') == moment(lastRecord.created_at).format('LL');    
+  // }
 
   render() {
     const { employee, records, lastCheckIn, session } = this.props;
     const {loading} = this.state;
     return (
-      <div className="contract">
-        {
-          loading && records.length ? false : (
-            <>
-              {
-                session.admin ? (
-                  <Link to="/employees" className="back">
-                    &lt; Regresar a Mis Empleados
-                  </Link>
-                ) : (
-                  <Link to="/profile" className="back">
-                    &lt; Regresar a Mi Perfil
-                  </Link>
-                )
-              }
-              
-              <div className="titlebar">
-                <h1> {employee.legalName ? employee.legalName.split(' ')[0] : ''}</h1>
-                {/* <span className={this.hasPendings(lastCheckIn, records) ? 'status m-t-15 pending' : 'status m-t-15 ready' }>{ this.hasPendings(lastCheckIn, records) ? 'Listo' : 'Pendiente de Check-out' }</span> */}
-              </div>
-            </>
-          )
-        }  
+      <>        
         {
           loading ? (
             <div className="sk-cube-grid">
@@ -92,14 +83,38 @@ class EmployeePreview extends Component {
               <div className="sk-cube sk-cube9"></div>
             </div>
           ) : (
+            <div className="contract">
+              {
+                session.admin ? (
+                  <Link to="/employees" className="back">
+                    &lt; Regresar a Mis Empleados
+                  </Link>
+                ) : (
+                  <Link to="/profile" className="back">
+                    &lt; Regresar a Mi Perfil
+                  </Link>
+                )
+            }  
+            <div className="titlebar">
+              <h1> {employee.legalName ? employee.legalName.split(' ')[0] : ''}</h1>
+              {/* <span className={this.hasPendings(lastCheckIn, records) ? 'status m-t-15 pending' : 'status m-t-15 ready' }>{ this.hasPendings(lastCheckIn, records) ? 'Listo' : 'Pendiente de Check-out' }</span> */}
+            </div>
             <div className="page padded">
             <div className="row">
               <div className="col-sm-7">
-                <span>
-                  Detalles
-                </span>
-                <p><b>Nombre:</b> {employee.legalName}</p>
-                <p><b>RFC:</b> {employee.legalRfc}</p>
+                {
+                  session.admin ? (
+                    <ProfileForm onSubmit={this.handleSubmit} user={session} initialValues={employee}/>
+                  ) : (
+                    <>
+                    <span>
+                      Detalles
+                    </span>
+                    <p><b>Nombre:</b> {employee.legalName}</p>
+                    <p><b>RFC:</b> {employee.legalRfc}</p>
+                    </>
+                  )
+                }
               </div>
               <div className="col-sm-5">
                 <span>
@@ -161,12 +176,11 @@ class EmployeePreview extends Component {
               </div>
             </div>
   
-            <div className="row">
             </div>
-        </div>
+          </div>
           )
         }
-    </div>
+    </>
     );
   }
 };
@@ -178,4 +192,4 @@ const mapStateToProps = (state) => ({
   session: {...state.session.session.user}
 });
 
-export default connect(mapStateToProps, {getEmployee, getRecords, getLastCheckIn})(EmployeePreview);
+export default connect(mapStateToProps, {getEmployee, getRecords, getLastCheckIn, putUpdate})(EmployeePreview);

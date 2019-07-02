@@ -10,7 +10,7 @@ class ProfileForm extends Component {
             <div className="row">
                 <div className="col-xs-6">
                     <label htmlFor="legalName">Nombre</label>
-                    <Field name="legalName" component="input" type="text" placeholder={user.legalName} />
+                    <Field name="legalName" component="input" type="text" placeholder={user.legalName} disabled={!user.admin}/>
                 </div>
                 <div className="col-xs-6">
                     <label htmlFor="email">E-mail</label>
@@ -20,7 +20,7 @@ class ProfileForm extends Component {
             <div className="row">
                 <div className="col-xs-6">
                     <label htmlFor="legalRfc">RFC</label>
-                    <Field name="legalRfc" component="input" type="text" placeholder={user.legalRfc} />
+                    <Field name="legalRfc" component="input" type="text" placeholder={user.legalRfc} disabled={!user.admin} />
                 </div>
             </div>
             <div className="row">

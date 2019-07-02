@@ -12,23 +12,33 @@ class Login extends Component {
     loading: false
   };
 
-  changeView = () => {
-    const { logginIn } = this.state;
-    this.setState({logginIn: !logginIn});
-  }
-
   handleSubmit = (values) => {
     const {dispatch} = this.props;
+    this.setState({loading: true});
     dispatch(
       postLogin(values)
-    );
+    ).then(() => this.setState({loading: true}));
   };
 
   render() {
     const { message, loading } = this.state;
     return (
       <>
-        <div className="container">
+      {
+        loading ? (
+           <div className="sk-cube-grid">
+              <div className="sk-cube sk-cube1"></div>
+              <div className="sk-cube sk-cube2"></div>
+              <div className="sk-cube sk-cube3"></div>
+              <div className="sk-cube sk-cube4"></div>
+              <div className="sk-cube sk-cube5"></div>
+              <div className="sk-cube sk-cube6"></div>
+              <div className="sk-cube sk-cube7"></div>
+              <div className="sk-cube sk-cube8"></div>
+              <div className="sk-cube sk-cube9"></div>
+            </div>
+        ) : (
+          <div className="container">
           <div className="row">
             <div className="col-xs-12 center-xs">
             <i className="fas fa-history fa-5x"  style={{color:"#C28662", paddingTop: 100}}/>
@@ -56,6 +66,8 @@ class Login extends Component {
           </div>
 
         </div>
+        )
+      }
       </>
     );
   }

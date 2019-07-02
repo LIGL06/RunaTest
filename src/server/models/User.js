@@ -21,6 +21,17 @@ const User = {
       .insert(parameters);
   },
 
+   /**
+   * Update an User
+   * @param  {Object} parameters User parameters
+   * @return {Promise}
+   */
+  update(condition, parameters) {
+    return Database.client('users')
+      .where(condition)
+      .update(parameters);
+  },
+
 };
 
 export default User;

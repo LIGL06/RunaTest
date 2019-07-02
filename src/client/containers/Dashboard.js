@@ -9,11 +9,11 @@ import EditRecord from './EditRecord';
 import Employees from './Employees';
 import EmployeePreview from './EmployeePreview';
 import EmployeeEdit from './EmployeeEdit';
+import Profile from './Profile';
 // Components
 import Home from '../components/Home';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import Profile from '../components/Profile';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -21,10 +21,6 @@ class Dashboard extends React.Component {
     this.state = {}
   }
 
-  componentDidMount(){
-    //
-  }
- 
   render() {
     const { session } = this.props;    
     if (!session) return <Redirect to="/login"/>;
@@ -42,7 +38,7 @@ class Dashboard extends React.Component {
               <Route path="/employees/:id" component={EmployeePreview}/>
               <Route path="/employees" component={Employees}/>
               <Route path="/employee/details/:id" component={EmployeeEdit}/>
-              <Route path="/profile" component={ () => <Profile user={user} />}/>
+              <Route path="/profile" component={Profile}/>
               <Route path="/" component={ () => <Home user={ user }/> }/>
             </Switch>
           </div>
