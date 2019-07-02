@@ -23,7 +23,7 @@ $ npm run dev
 Access http://localhost:8080 and create a user on `runatest.users` with the credentials:
 
 DB Motor: `PostreSQL`,
-Server: `db`,
+Server: `db`,*
 Username: `postgres`,
 Password: `passw0rd`,
 Database: `runatest`
@@ -55,3 +55,14 @@ $ npm run build
 $ docker-compose up -d
 $ npm run start
 ```
+
+### Dependencies
+
+* React
+* Redux
+* Redux Thunk (Tryed Redux Observable but action$.pipe never responded)
+* Ducks Actions Patterns
+* Redux Form
+* WebPack for Bundle
+* Babel for Client Side Compile
+* Knex for DB Handling
