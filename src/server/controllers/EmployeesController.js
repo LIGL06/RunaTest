@@ -11,50 +11,90 @@ const EmployeesController = Router({
 EmployeesController.use(requireAuth);
 
 EmployeesController.get('/list', async (ctx) => {
-  ctx.body = await User.get({ admin: false });
+  try {
+    ctx.body = await User.get({ admin: false });
+  } catch {
+    ctx.status = 401;
+    ctx.body = { error: 'Error trying to access Employees'};
+  }
 });
 
 EmployeesController.get('/get/:id', async (ctx) => {
-  const [id] = await User.get({
-    id: ctx.params.id
-  });
-  ctx.body = {
-    ...id
-  };
+  try {
+    const [id] = await User.get({
+      id: ctx.params.id
+    });
+    ctx.body = {
+      ...id
+    };
+  } catch {
+    ctx.status = 401;
+    ctx.body = { error: 'Error trying to access Employee'};
+  }
 });
 
 EmployeesController.get('/record/:id', async (ctx) => {
-  const [record] = await Record.getOne({ id: ctx.params.id });
-  ctx.body = record;
+  try {
+    const [record] = await Record.getOne({ id: ctx.params.id });
+    ctx.body = record;
+  } catch {
+    ctx.status = 401;
+    ctx.body = { error: 'Error trying to access Record'};
+  }
 });
 
 EmployeesController.get('/records/:id', async (ctx) => {
-  ctx.body = await Record.get({ user: ctx.params.id });
+  try {
+    ctx.body = await Record.get({ user: ctx.params.id });
+  } catch {
+    ctx.status = 401;
+    ctx.body = { error: 'Error trying to access Records of User'};
+  }
 });
 
 EmployeesController.get('/records/check-in/:id', async (ctx) => {
-  const [lastCheckIn] = await Record.getLastCheckIn({ user: ctx.params.id, updated_at: null });
-  ctx.body = lastCheckIn;
+  try {
+    const [lastCheckIn] = await Record.getLastCheckIn({ user: ctx.params.id, updated_at: null });
+    ctx.body = lastCheckIn;
+  } catch {
+    ctx.status = 401;
+    ctx.body = { error: 'Error trying to access last pending record'};
+  }
 });
 
 EmployeesController.post('/records/:id', async (ctx) => {
-  const payload = {
-    ...ctx.request.body
-  };
-  ctx.body = await Record.create(payload);
+  try {
+    const payload = {
+      ...ctx.request.body
+    };
+    ctx.body = await Record.create(payload);
+  } catch {
+    ctx.status = 401;
+    ctx.body = { error: 'Error trying to create Record'};
+  }
 });
 
 EmployeesController.put('/records/:id', async (ctx) => {
-  const payload = {
-    ...ctx.request.body
-  };
-  ctx.body = await Record.update({ id: ctx.params.id }, payload);
+  try {
+    const payload = {
+      ...ctx.request.body
+    };
+    ctx.body = await Record.update({ id: ctx.params.id }, payload);
+  } catch {
+    ctx.status = 401;
+    ctx.body = { error: 'Error trying to update Record'};
+  }
 });
 
 EmployeesController.put('/update/:id', async (ctx) => {
-  const payload = {
-    ...ctx.request.body
-  };
-  ctx.body = await User.update({ id: ctx.params.id }, payload);
+  try {
+    const payload = {
+      ...ctx.request.body
+    };
+    ctx.body = await User.update({ id: ctx.params.id }, payload);
+  } catch {
+    ctx.status = 401;
+    ctx.body = { error: 'Error trying to update Employee'};
+  }
 });
 export default EmployeesController;

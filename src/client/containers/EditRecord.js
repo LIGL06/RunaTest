@@ -52,7 +52,7 @@ class EditRecord extends Component {
   handleMomentSubmit = (event) => {
     event.preventDefault();
     const { match } = this.props;
-    const date = moment.tz('America/Monterrey').format('YYYY-MM-DD HH:mm:ss');
+    const date = moment.tz('America/Monterrey').format();
     this.props.putRecord({
       day: date,
       updated_at: date

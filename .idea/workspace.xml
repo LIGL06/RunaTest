@@ -3,41 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8a69a842-8625-47c1-8a4b-39b031918af7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/knexfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/knexfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/actions/employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/actions/employees.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/actions/records.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/actions/records.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/actions/session.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/actions/session.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/CheckInForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/CheckInForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/CheckOutForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/CheckOutForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/Emplooyee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/Emplooyee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/EmployeeRow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/EmployeeRow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/LoginForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/ProfileForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/ProfileForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/components/SignUpForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/components/SignUpForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/Application.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/Application.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/EditRecord.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/EditRecord.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/EmployeeEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/EmployeeEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/EmployeePreview.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/EmployeePreview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/Employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/Employees.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/NewEmployee.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/NewEmployee.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/NewRecord.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/NewRecord.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/containers/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/containers/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/less/dashboard.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/less/dashboard.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/less/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/less/index.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/controllers/EmployeesController.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/controllers/EmployeesController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/models/Record.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/Record.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/models/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -49,20 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/server/controllers/EmployeesController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="56" column="4" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -133,6 +85,7 @@
         <option value="$PROJECT_DIR$/src/server/models/Record.js" />
         <option value="$PROJECT_DIR$/src/server/models/User.js" />
         <option value="$PROJECT_DIR$/src/server/controllers/EmployeesController.js" />
+        <option value="$PROJECT_DIR$/src/server/controllers/SessionController.js" />
       </list>
     </option>
   </component>
@@ -166,13 +119,6 @@
               <item name="RunaTest" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RunaTest" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RunaTest" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="controllers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -227,16 +173,16 @@
       <workItem from="1561477841321" duration="710000" />
       <workItem from="1561486741298" duration="608000" />
       <workItem from="1561503555226" duration="25000" />
-      <workItem from="1562080621688" duration="1856000" />
+      <workItem from="1562080621688" duration="2016000" />
+      <workItem from="1562084006348" duration="596000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18499000" />
+    <option name="totallyTimeSpent" value="19255000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -262,13 +208,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/client/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="74" selection-start-line="10" selection-start-column="74" selection-end-line="10" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/docker-compose.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -328,43 +267,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/epics/employees.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/reducers/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/epics/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="15" selection-start-line="4" selection-start-column="15" selection-end-line="4" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/epics/session.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/epics/employees.js" />
+    <entry file="file://$PROJECT_DIR$/src/client/reducers/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/client/epics/index.js" />
+    <entry file="file://$PROJECT_DIR$/src/client/epics/session.js" />
     <entry file="file://$PROJECT_DIR$/webpack.config.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -668,10 +574,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/server/controllers/EmployeesController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
+        <state relative-caret-position="901">
           <caret line="56" column="4" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/controllers/SessionController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="61" column="4" selection-start-line="61" selection-start-column="4" selection-end-line="61" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -44,7 +44,7 @@ export const postLogin = action => async (dispatch) => {
       axios.defaults.headers.common['X-Jwt-Token'] = token;
       dispatch(push('/'));
     }
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Credenciales Inválidas'));
 };
 // Duck SignUp
 export const postSignUp = action => async (dispatch) => {
@@ -52,7 +52,7 @@ export const postSignUp = action => async (dispatch) => {
   return axios.post('/api/session/register', action).then(res => {
     dispatch(signUpCompleted(res.data));
     dispatch(push('/employees'));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Usuario ya registrado'));
 };
 // Duck Logout
 export const SessionActions = {

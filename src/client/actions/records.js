@@ -85,7 +85,7 @@ export const getRecords = userId => async (dispatch) => {
   await axios.get(`/api/employees/records/${ userId }`).then(res => {
     const records = res.data;
     dispatch(fetchRecordsCompleted(records));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Error al obtener Check-In'));
 };
 
 export const getRecord = recordId => async (dispatch) => {
@@ -93,7 +93,7 @@ export const getRecord = recordId => async (dispatch) => {
   await axios.get(`/api/employees/record/${ recordId }`).then(res => {
     const record = res.data;
     dispatch(fetchRecordCompleted(record));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Error al obtener Check-In'));
 };
 
 export const getLastCheckIn = userId => async (dispatch) => {
@@ -101,7 +101,7 @@ export const getLastCheckIn = userId => async (dispatch) => {
   await axios.get(`/api/employees/records/check-in/${ userId }`).then(res => {
     const lastCheckIn = res.data;
     dispatch(fetchLastCheckInCompleted(lastCheckIn));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Error al obtener ultimo Check-In'));
 };
 
 export const postRecord = (record, userId) => async (dispatch) => {
@@ -110,7 +110,7 @@ export const postRecord = (record, userId) => async (dispatch) => {
     const newRecord = res.data;
     dispatch(createRecordCompleted(newRecord));
     dispatch(push('/employees/' + userId));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Error al crear Check-In'));
 };
 
 export const putRecord = (record, recordId) => async (dispatch) => {
@@ -119,7 +119,7 @@ export const putRecord = (record, recordId) => async (dispatch) => {
     const updatedRecord = res.data;
     dispatch(updateRecordCompleted(updatedRecord));
     dispatch(push('/employees/'));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Error al crear Check-Out'));
 };
 // Reducer
 export default function (state = { loading: true, records: [], lastCheckIn: {}, newRecord: {}, record: {} }, action) {

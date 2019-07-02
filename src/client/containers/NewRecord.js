@@ -42,7 +42,7 @@ class NewRecord extends Component {
   handleMomentSubmit = (event) => {
     event.preventDefault();
     const { dispatch, match } = this.props;
-    const date = moment.tz('America/Monterrey').format('YYYY-MM-DD HH:mm:ss');
+    const date = moment.tz('America/Monterrey').format();
     dispatch(
       postRecord({
         user: match.params.id,

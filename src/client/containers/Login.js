@@ -17,7 +17,7 @@ class Login extends Component {
     this.setState({ loading: true });
     dispatch(
       postLogin(values)
-    ).then(() => this.setState({ loading: true }));
+    ).then(() => this.setState({ loading: false }));
   };
 
   render() {

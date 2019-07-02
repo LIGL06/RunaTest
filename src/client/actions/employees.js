@@ -50,7 +50,7 @@ export const getEmployees = () => async (dispatch) => {
   await axios.get('/api/employees/list').then(res => {
     const employees = res.data;
     dispatch(fetchEmployeesFulfilled(employees));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Error al obtener empleados'));
 };
 
 export const getEmployee = (id) => async (dispatch) => {
@@ -58,7 +58,7 @@ export const getEmployee = (id) => async (dispatch) => {
   await axios.get(`/api/employees/get/${ id }`).then(res => {
     const employee = res.data;
     dispatch(fetchEmployeeFulfilled(employee));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Error al obtener empleado'));
 };
 
 // Duck Update User
@@ -67,7 +67,7 @@ export const putUpdate = (action, userId) => async (dispatch) => {
   return axios.put(`/api/employees/update/${ userId }`, action).then(res => {
     dispatch(updateEmployeeFulfilled(res.data));
     dispatch(push('/employees'));
-  }).catch(error => console.error(error));
+  }).catch(error => alert('Error al actualizar empleado'));
 };
 
 export default function (state = { loading: true, employees: [], employee: {} }, action) {
