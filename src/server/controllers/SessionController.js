@@ -34,16 +34,18 @@ SessionController.post('/register', async (ctx) => {
             .format('YYYY-MM-DD HH:mm:ss'),
           admin: false
         };
-        const newId = await User.create(userFields);
-        logger.info('New user registration', {
-          ...userFields,
-          // newId
-        });
-        ctx.body = {
-          ...userFields,
-          newId
-        };
-        resolve();
+        try {
+          await User.create(userFields); 
+          logger.info('New user registration', {
+            ...userFields
+          });
+          ctx.body = {
+            ...userFields
+          };
+          resolve();
+        } catch {
+          reject(new Error('Create User Error'));
+        }
       });
     });
   } else {

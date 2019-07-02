@@ -29,10 +29,10 @@ export const signup = () => {
   type: SIGNUP_START
 }};
 
-export const signupCompleted = user => {
+export const signupCompleted = newEmployee => {
   return {
   type: SIGNUP_COMPLETED,
-  user
+  newEmployee
   }
 };
 
@@ -58,10 +58,8 @@ export const postLogin = action => async (dispatch) => {
 export const postSignUp = action => async (dispatch) => {
   dispatch(signup());
     return axios.post('/api/session/register', action).then(res => {
-      if(res.data.token && res.data.session){
-        dispatch(signupCompleted(res.data));
-        dispatch(push('/employees'));
-      }
+      dispatch(signupCompleted(res.data));
+      dispatch(push('/employees'));
     }).catch(error => console.error(error));
 }
 // Duck Logout
@@ -74,7 +72,7 @@ export const SessionActions = {
   }
 }
 // Reducer
-export default function(state = {loading: true, session: {}, user: {}, message: null}, action){
+export default function(state = {loading: true, session: {}, newEmployee: {}, message: null}, action){
   switch (action.type) {
     case LOGIN_COMPLETED:
       return {
@@ -89,7 +87,7 @@ export default function(state = {loading: true, session: {}, user: {}, message: 
     case SIGNUP_COMPLETED:
       return {
         ...state,
-        user: action.user,
+        newEmployee: action.newEmployee,
         loading: false,
       };
     case SIGNUP_START:

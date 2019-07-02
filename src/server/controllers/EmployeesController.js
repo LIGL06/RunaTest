@@ -32,4 +32,11 @@ EmployeesController.get('/records/check-in/:id', async (ctx) => {
   const [lastCheckIn] = await Record.getLastCheckIn({user: ctx.params.id, updated_at: null});
   ctx.body = lastCheckIn;
 });
+
+EmployeesController.post('/records/:id', async (ctx) => {
+  const payload = {
+    ...ctx.request.body
+  }
+  ctx.body = await Record.create(payload);
+});
 export default EmployeesController;

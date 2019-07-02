@@ -169,7 +169,7 @@ const mapStateToProps = (state) => ({
   employee: {...state.employees.employee},
   records: state.records.records,
   lastCheckIn: state.records.lastCheckIn,
-  session: {...state.session.user}
+  session: {...state.session.session.user}
 });
 
 export default connect(mapStateToProps, {getEmployee, getRecords, getLastCheckIn})(EmployeePreview);

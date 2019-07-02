@@ -2,16 +2,17 @@
 import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
+import moment from 'moment-timezone';
 // Components
 import CheckInForm from '../components/CheckInForm';
 // Actions
-
+import { postRecord } from '../actions/records';
 
 class NewRecord extends Component {
   state = {
     message: '',
-    momentStyle: true
+    momentStyle: true,
+    momentTime: null
   };
 
   changeView = () => {
@@ -20,16 +21,33 @@ class NewRecord extends Component {
   }
 
   handleSubmit = (values) => {
-    const {dispatch} = this.props;
+    const {dispatch, match} = this.props;
+    const day = moment(values.day).format('YYYY-MM-DD');
+    const formattedDay = day.split('T')[0];
+    const created_at = moment(`${values.created_at} am`, "HH:mm a").format();
+    const fromattedCreated= created_at.split('T')[1];
+    const formattedStamp = `${formattedDay}T${fromattedCreated}`;
+    dispatch(
+      postRecord({
+        user: match.params.id,
+        day: formattedDay,
+        created_at: formattedStamp
+      }, match.params.id)
+    );
   };
 
   handleMomentSubmit = (event) => {
     event.preventDefault();
+    const {dispatch, match} = this.props;
+    const date = moment.tz('America/Monterrey').format('YYYY-MM-DD HH:mm:ss');
+    dispatch(
+      postRecord({
+        user: match.params.id,
+        day: date,
+        created_at: date
+      }, match.params.id)
+    );
   };
-
-  handleChange(event){
-
-  }
 
   render() {
     const { momentStyle } = this.state;
@@ -46,7 +64,7 @@ class NewRecord extends Component {
                 <div className="row">
                   <div className="col-xs-12 col-md-4">
                     <label htmlFor="day">Fecha y Hora</label>
-                    <input name="day" type="data" value={moment().format()} onChange={this.handleChange} disabled/>
+                    <input name="day" type="data" value={moment.tz('America/Monterrey').format('YYYY-MM-DD HH:mm:ss')} disabled/>
                   </div>
                 </div>
                 <div className="row">
