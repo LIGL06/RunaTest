@@ -8,7 +8,7 @@ The following commands will install dependencies, start the docker containers fo
 ```bash
 $ npm install
 $ docker-compose up -d
-````
+```
 Access http://localhost:8080 and create database `runatest` with the credentials:
 
 DB Motor: `PostreSQL`,
@@ -16,7 +16,7 @@ Server: `db`,
 Username: `postgres`,
 Password: `passw0rd`
 
-````bash
+```bash
 $ npm run migrate
 $ npm run dev
 ```
